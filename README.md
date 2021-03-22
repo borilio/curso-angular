@@ -5,6 +5,7 @@ Repositorio donde ubicaremos algunos recursos para el curso de Angular
 
 Para usar el servidor REST con los datos de `db.json`, puedes hacer consultas a:
 - [http://my-json-server.typicode.com/borilio/curso-angular](http://my-json-server.typicode.com/borilio/curso-angular)
+- [http://my-json-server.typicode.com/borilio/curso-angular/db](http://my-json-server.typicode.com/borilio/curso-angular/db)
 - [http://my-json-server.typicode.com/borilio/curso-angular/heroes](http://my-json-server.typicode.com/borilio/curso-angular/heroes)
 - [http://my-json-server.typicode.com/borilio/curso-angular/heroes/13](http://my-json-server.typicode.com/borilio/curso-angular/heroes/13)
 
