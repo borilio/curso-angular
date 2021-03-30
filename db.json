@@ -192,5 +192,5 @@
       "vida": 100
     }
   ],
-  "profile" : { name: "borilio" }
+  "profile" : { "name" : "borilio" }
 }
