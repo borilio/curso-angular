@@ -190,6 +190,16 @@
       "poder": 145,
       "honor": 78,
       "vida": 100
+    },
+    {
+      "id": 20,
+      "nombre": "Señor Pepino",
+      "imagen": "https://image.freepik.com/vector-gratis/pepino-superheroe_87946-182.jpg",
+      "ataque": 3,
+      "defensa": 2,
+      "poder": 1,
+      "honor": 99,
+      "vida": 98
     }
   ],
   "profile" : { "name" : "borilio" }
