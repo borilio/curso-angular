@@ -2,6 +2,8 @@
 
 Esta es tu guía de referencia: cuando vuelvas dentro de meses y necesites replicar la aplicación con un nuevo temario, aquí está todo lo que tienes que saber.
 
+Si quieres ver en funcionamiento este repositorio, ve a https://temario-base.netlify.app
+
 ## Clonar y ejecutar localmente
 
 ```bash
