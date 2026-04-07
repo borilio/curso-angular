@@ -9,6 +9,8 @@ Si quieres ver en funcionamiento este repositorio, ve a https://temario-base.net
 ```bash
 git clone https://github.com/borilio/temar.io
 cd temar.io
+# Elimina la referencia al repositorio original para no hacer push allí accidentalmente
+git remote remove origin
 npm install
 npm run start
 ```
@@ -17,8 +19,12 @@ Abre `http://localhost:4200` en el navegador. La app estará lista para editar.
 
 > [!TIP]
 >
-> 1. Abre el proyecto con Visual Studio Code, y ya podrás editarlo localmente. 
-> 2. Podrás subirlo a un nuevo repositorio.
+> 1. Abre el proyecto con Visual Studio Code, y ya podrás editarlo localmente.
+> 2. Si quieres subirlo a tu propio repositorio, primero crea un nuevo repo en GitHub y luego añade su remoto:
+>    ```bash
+>    git remote add origin https://github.com/tu-usuario/tu-repo.git
+>    git push -u origin main
+>    ```
 > 3. Despliega ese repo en Netlify y ya estaría funcionando. Solo queda editar su contenido.
 
 ## Estructura de carpetas
