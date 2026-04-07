@@ -1,8 +1,8 @@
 {
   "name": "Temar.io",
-  "version": "0.1.2b",
-  "codename": "imperioso",
-  "date": "2025-11-01",
+  "version": "0.1.3",
+  "codename": "Don Matías",
+  "date": "2026-04-01",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --host 0.0.0.0",
