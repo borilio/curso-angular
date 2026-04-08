@@ -146,13 +146,13 @@ Vamos a crear un nuevo componente para ver cómo Angular nos permite dividir la 
 
 3. Si abrimos esa carpeta (`src/app/saludo/`), veremos algo muy familiar:
 
-   - `saludo.ts`
    - `saludo.html`
    - `saludo.css`
+   - `saludo.ts`
 
    🧩Es decir, **otro componente con la misma estructura que `app`**.
 
-4. Ahora vamos a usar este nuevo componente dentro de nuestra aplicación. Abrimos el archivo app.html y le añadimos la siguiente línea al final del contenido:
+4. Ahora vamos a usar este nuevo componente dentro de nuestra aplicación. Abrimos el archivo `app.html` y le añadimos la siguiente línea al final del contenido:
 
    ```html
    <app-saludo></app-saludo>
@@ -244,7 +244,7 @@ El código visto es el generado por el Angular CLI y, en la mayoría de los caso
 
 Por ejemplo, es posible definir directamente la plantilla HTML y los estilos dentro del propio archivo TypeScript, evitando la necesidad de archivos externos. Además, en lugar de un único archivo de estilos, también se puede trabajar con un array de archivos CSS si se desea mantener los estilos separados pero agrupados en la configuración del componente.
 
-A continuación, se muestra un ejemplo en el que se crea un componente llamado `verificacion` utilizando esta aproximación simplificada:
+A continuación, se muestra un ejemplo en el que componente ficticio llamado `verificacion` utiliza esa aproximación simplificada:
 
 ```typescript
 // verificacion.ts
@@ -269,6 +269,117 @@ export class Verificacion {}
 
 ### Atributos y métodos
 
-{{Lo siguiente es añadir atributos y métodos a la clase Saludo, para empezar a tocar código y ver lógica.
+<div style="padding: 1rem; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px; color: #7b5e00; margin: 1rem 0; font-size:1.1rem">
+  <p style="font-size: 1.5rem; text-align:center"><strong>💡 Recomendación 💡</strong></p>
+  <p>
+    Aunque en el temario se incluye todo el código listo para copiar y pegar, es <strong>muy recomendable</strong> que lo escribas manualmente en lugar de copiarlo directamente.
+  </p>
+  <p>Escribir el código te ayudará a:</p>
+  <ul>
+    <li>Entender mejor la lógica de lo que estás haciendo</li>
+    <li>Familiarizarte con la sintaxis de Angular y TypeScript</li>
+    <li>Detectar errores y aprender a corregirlos</li>
+  </ul>
+  <p><strong>
+    Copiar y pegar puede parecer más rápido, pero reduce mucho el aprendizaje real. En cambio, escribir el código paso a paso te permitirá asimilar los conceptos de forma mucho más sólida.
+    </strong>
+  </p>
+<blockquote style="background-color: #8c8c8920; color: #7b5e00 ">
+  <ul style="list-style-type: none;">
+    <li>
+      <img src="img/02-componentes/luke-ico.png" alt="luke-ico" class="img-inline" style="height:1.1rem" />
+      <em>¿Es más fuerte el Reverso Tenebroso?</em>
+    </li>
+    <li>
+      <img src="img/02-componentes/yoda-ico.png" alt="yoda-ico" class="img-inline" style="height:1.1rem" />
+      <em>No, no... no. Más rápido, más fácil, más seductor.</em>
+    </li>
+  </ul>
+</blockquote>
+</div>
 
-Pero quiero algo más “impactante” y guay en el nuevo temario. No me gusta lo del idioma y el método del botón y todo eso. Que piense chatgpt mañana.}}
+Para ver cómo funciona realmente un componente y darle algo de chicha al ejemplo, vamos a añadir algo de lógica.
+
+En este caso, crearemos un contador que se incrementa cada vez que pulsamos un botón.
+
+En el archivo `saludo.ts`, a la clase `Saludo` le añadimos un **atributo** (`contador`) y un **método** (`incrementar()`).
+
+```typescript
+//saludo.ts
+//...
+export class Saludo {
+  contador = 0;
+
+  incrementar(){
+    this.contador = this.contador + 1;
+  }
+}
+```
+
+Al archivo `saludo.html` le sustituimos el contenido por lo siguiente:
+
+```html
+<!-- saludo.html -->
+<p>Contador: {{ contador }}</p>
+
+<button (click)="incrementar()">Incrementar</button>
+```
+
+![Captura de pantalla del navegador ejecutando la aplicación](img/02-componentes/image-20260408133524426.png){.rounded}
+
+Al ejecutar la aplicación, veremos que cada vez que pulsamos el botón, el valor del contador se actualiza automáticamente en pantalla.
+
+Este comportamiento es una de las claves de Angular y nos permite crear interfaces dinámicas sin necesidad de manipular el DOM manualmente. Más adelante veremos en detalle cómo funciona este mecanismo.
+
+> [!tip]
+>
+> - 🧑‍🏫Lleva el contador hasta 10. Recarga la página. ¿Qué ha pasado?. 
+> - 👩‍🏫Añade un botón para resetear el contador a 0. Otro botón para restar un 1 al contador. Evita que el contador se ponga en negativo.
+
+## 🧪 Ejercicio refuerzo 1
+
+Crear un nuevo proyecto de Angular y generar tres componentes: uno de cabecera, uno de contenido (cuerpo) y uno de pie de página.
+
+Cada componente debe mostrar un texto sencillo identificativo en un párrafo  (por ejemplo: “Cabecera de la aplicación”, “Contenido principal” y “Pie de página”).
+
+```html
+<p>Cabecera de la aplicación</p>
+```
+
+Una vez creados, incluir los tres componentes en la plantilla principal de la aplicación (`app.html`) para que se muestren en pantalla en ese orden: cabecera, cuerpo y pie de página.
+
+> [!tip]
+>
+> Para darle más sentido, los componentes en lugar de tener un texto simple en un párrafo, ponles algo como:
+>
+> ```html
+> <!-- cabecera.html -->
+> <header>
+>     <h1>Mi primera aplicación en Angular</h1>
+>     <p>Cabecera de la aplicación</p>
+> </header>
+> ```
+>
+> ```html
+> <!-- cuerpo.html -->
+> <main>
+>     <h2>Contenido principal</h2>
+>     <p>
+>         Este es el cuerpo de la aplicación. Aquí se mostrará el contenido principal gestionado por componentes.
+>     </p>
+> </main>
+> ```
+>
+> ```html
+> <!-- pie.html -->
+> <footer>
+>   <p>Pie de página</p>
+>   <small>© 2026 - Ejercicio de Angular</small>
+> </footer>
+> ```
+
+
+
+## Binding
+
+{{Y ya vamo}}
