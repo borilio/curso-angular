@@ -8,11 +8,11 @@
 
 **Angular, es un** **framework** para aplicaciones web desarrollado **en** **TypeScript**, de código abierto, mantenido por Google, **que se utiliza para crear** y mantener **aplicaciones web de una sola página** (*SPA, single page application*).
 
-Su objetivo es aumentar las aplicaciones basadas en navegador con capacidad de Modelo Vista Controlador (MVC), en un esfuerzo para hacer que el desarrollo y las pruebas sean más fáciles.
+Angular se estructura en torno a **componentes**, que son clases encargadas de definir la lógica y la interfaz de cada parte de la aplicación. Estas clases contienen propiedades (atributos) y métodos (funciones), que se utilizan para gestionar el estado y permitir la comunicación con la vista mediante el *data binding*.
 
-Angular se basa en clases tipo “Componentes”, cuyas propiedades son las usadas para hacer en enlace de los datos (data binding). En dichas clases tenemos propiedades (atributos) y métodos (funciones).
+Angular es la evolución de **AngularJS**, un framework lanzado por Google en 2010 basado en JavaScript. Debido a las limitaciones de este lenguaje en aquel momento y a un cambio profundo en el enfoque de desarrollo, Angular fue reescrito desde cero, dando lugar a un framework completamente nuevo. Por este motivo, **AngularJS no es compatible con Angular (versiones 2 en adelante)**.
 
-Angular es la evolución de AngularJS, el cual fue lanzado en 2010 por Google y se desarrolló en JavaScript. Debido a las limitaciones del lenguaje y el cambio radical de funcionamiento se volvió a escribir desde 0, naciendo un framework nuevo más que una nueva versión de este. AngularJS no es compatible con las versiones de Angular2 en adelante.
+![Infografía que representa la evolución de AngularJS hasta Angular20+](img/01-intro/evolucion-angular-infografia.png){.img-preview}
 
 # Características de Angular
 
@@ -45,6 +45,70 @@ Angular es la evolución de AngularJS, el cual fue lanzado en 2010 por Google y 
 - **Accesibilidad (a11y)**: Facilita la creación de interfaces accesibles mediante buenas prácticas y compatibilidad con atributos ARIA, especialmente al usar librerías como Angular Material.
 
 # Primeros pasos
+
+## Requisitos previos
+
+> [!warning]
+>
+> Este curso no tiene requisitos obligatorios, pero sí es recomendable contar con una base previa y ciertas condiciones técnicas para poder seguirlo con mayor comodidad y aprovecharlo al máximo.
+
+### Conocimientos
+
+Para no perderse durante el curso, se recomienda:
+
+- Tener conocimientos básicos de **HTML**, ya que Angular trabaja directamente sobre plantillas web.
+- Conocer **CSS** a nivel básico (aunque no es imprescindible, sí ayuda a entender mejor la parte visual). Recomendado Bootstrap o Tailwind.
+- Disponer de una **base de programación**, independientemente del lenguaje (JavaScript, Java, C, Python, etc.).
+
+> [!important]
+>
+> Lo más importante no es el lenguaje en sí, sino estar familiarizado con los conceptos fundamentales de la **programación orientada a objetos (POO)**, como:
+>
+> - Clases y objetos  
+> - Atributos y métodos  
+> - Constructores  
+> - Interfaces  
+>
+> Si ya has trabajado previamente con estos conceptos, te resultará mucho más sencillo entender cómo funciona Angular.
+>
+
+### Técnicos
+
+A lo largo del curso será necesario instalar varias herramientas en el equipo, principalmente:
+
+- **Visual Studio Code** (editor de código)
+- **Node.js** (entorno de ejecución necesario para Angular)
+
+Estas herramientas son **multiplataforma**, por lo que pueden instalarse sin problema en **Windows, macOS y Linux**.
+
+Por este motivo, es recomendable:
+
+- Tener permisos suficientes para instalar software en el equipo (especialmente en entornos corporativos o equipos restringidos).
+- Utilizar preferiblemente versiones instaladas (aunque en algunos casos existen alternativas portables).
+
+Contar con estos permisos desde el inicio evitará problemas durante la configuración del entorno de desarrollo.
+
+### ¿Qué es TypeScript?
+
+Hemos comentado que Angular está desarrollado en TypeScript, pero **¿podré enterarme de todo si no conozco TypeScript?** La respuesta es sí. El curso está pensado para aprender Angular conociendo sólo JavaScript e **iremos explicando de forma transversal las novedades y mejoras** que trae TS respecto a JS.
+
+**TypeScript es un super set de JavaScript**, por lo que podemos decir que es JavaScript con novedades y añadidos. Si conoces JavaScript tienes el 80% del camino andado. Veamos algunas de las características más destacables.
+
+![Gráfico que representa que Typescript es un superconjunto que engloba a EcmaScript 6 y a JavaScript](img/01-intro/image-20260330145508629.png)
+
+- Es un super set de JavaScript.
+- Está mantenido por Microsoft. Y Angular por Google 😉.
+- Es un lenguaje fuertemente tipado y flexible a la vez. Todos los tipos de datos [aquí en la documentación oficial](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html).
+- Permite las características de POO más modernas, como clases, objetos, constructores, métodos, interfaces, etc.
+- Permite inyección de dependencias, como Spring Framework de Java.
+- Permite los decoradores, muy usados en Angular.
+- La mayoría de IDES soportan autocompletado inteligente de código.
+
+ Toda la documentación oficial y actualizada de TypeScript la [tienes disponible en este enlace](https://www.typescriptlang.org/docs/handbook/intro.html).
+
+
+
+
 
 ## Node JS
 
@@ -113,24 +177,6 @@ Nos debería salir una pantalla como la siguiente:
 > Todos los pasos que se explican a lo largo del tutorial están actualizados y probados para la versión de AngularCLI 21.2.5, actualizadas al 01/04/2026. Pueden existir diferencias en próximas actualizaciones de Angular.
 
 Una vez instalado NodeJS y AngularCLI, ya tenemos las herramientas necesarias para poder crear un proyecto Angular con su estructura funcional en cuestión de segundos. Vamos al turrón.
-
-# ¿Qué es TypeScript?
-
-Hemos comentado que Angular está desarrollado en TypeScript, pero **¿podré enterarme de todo si no conozco TypeScript?** La respuesta es sí. El curso está pensado para aprender Angular conociendo sólo JavaScript e **iremos explicando de forma transversal las novedades y mejoras** que trae TS respecto a JS.
-
-**TypeScript es un super set de JavaScript**, por lo que podemos decir que es JavaScript con novedades y añadidos. Si conoces JavaScript tienes el 80% del camino andado. Veamos algunas de las características más destacables.
-
-![image-20260330145508629](img/01-intro/image-20260330145508629.png)
-
-- Es un super set de JavaScript.
-- Está mantenido por Microsoft. Y Angular por Google 😉.
-- Es un lenguaje fuertemente tipado y flexible a la vez. Todos los tipos de datos [aquí en la documentación oficial](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html).
-- Permite las características de POO más modernas, como clases, objetos, constructores, métodos, interfaces, etc.
-- Permite inyección de dependencias, como Spring Framework de Java.
-- Permite los decoradores, muy usados en Angular.
-- La mayoría de IDES soportan autocompletado inteligente de código.
-
- Toda la documentación oficial y actualizada de TypeScript la [tienes disponible en este enlace](https://www.typescriptlang.org/docs/handbook/intro.html).
 
 # Primer proyecto en Angular. ¡¡¡HOLA MUNDO!!!
 
