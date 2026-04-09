@@ -316,6 +316,17 @@
           "severity": "primary",
           "outlined": false,
           "habilitado": true
+        },
+        {
+          "id": "poo",
+          "orden": 8,
+          "titulo": "⭐Programación Orientada a Objetos",
+          "descripcion": "Programación Orientada a Objetos: Conceptos y sintaxis en Typescript",
+          "archivoMd": "poo.md",
+          "icon": "pi pi-angle-right",
+          "severity": "primary",
+          "outlined": false,
+          "habilitado": true 
         }
       ]
     }
