@@ -336,7 +336,7 @@ Este comportamiento es una de las claves de Angular y nos permite crear interfac
 > - 🧑‍🏫Lleva el contador hasta 10. Recarga la página. ¿Qué ha pasado?. 
 > - 👩‍🏫Añade un botón para resetear el contador a 0. Otro botón para restar un 1 al contador. Evita que el contador se ponga en negativo.
 
-## 🧪 Ejercicio refuerzo 1
+## 🧪 Ejercicio: Practica con componentes
 
 Crear un nuevo proyecto de Angular y generar tres componentes: uno de cabecera, uno de contenido (cuerpo) y uno de pie de página.
 
@@ -347,6 +347,10 @@ Cada componente debe mostrar un texto sencillo identificativo en un párrafo  (p
 ```
 
 Una vez creados, incluir los tres componentes en la plantilla principal de la aplicación (`app.html`) para que se muestren en pantalla en ese orden: cabecera, cuerpo y pie de página.
+
+![Esquema con el contenido de la app](img/02-componentes/image-20260409131407161.png){.rounded}
+
+
 
 > [!tip]
 >
@@ -378,8 +382,29 @@ Una vez creados, incluir los tres componentes en la plantilla principal de la ap
 > </footer>
 > ```
 
+## 🧪 Ejercicio: Tarjeta de usuario
 
+Sobre el proyecto que ya tienes creado, generar un nuevo componente llamado `usuario`.
 
-## Binding
+Añade el componente `usuario` dentro del componente raíz `app.html` y comprueba que se visualiza correctamente el `<p>usuario works!</p>`.
 
-{{Y ya vamo}}
+En el nuevo componente, definir los siguientes atributos dentro del archivo TypeScript (`usuario.ts`), indicando su tipo:
+
+- `nombre`: texto (*string*)
+- `clave`: texto (*string*)
+- `edad`: número (*number*)
+- `activo`: valor lógico (*boolean*, verdadero o falso)
+
+Mostrar estos datos en la plantilla HTML del componente (`usuario.html`) de forma clara.
+
+> [!note]
+>
+> 💪Como extra, haz que los atributos `edad` y `activo` se inicialicen con un valor aleatorio.
+>
+> Puedes añadir el componente más de una vez para comprobar que cada uno tiene sus propios valores (cambiarán la `edad` y `activo`, que son los que inicializamos aleatoriamente).
+
+----
+
+> [!warning]
+>
+> 🧑‍🏫 ¿Quizás sería un buen momento de hacer un repaso a los conceptos de programación orientada a objetos?
