@@ -1,8 +1,6 @@
 [TOC]
 
-# Programación Orientada a Objetos
-
-## Introducción
+# Introducción
 
 Antes de seguir avanzando con Angular, es importante entender una idea clave: **los componentes están escritos como clases**, utilizando programación orientada a objetos (POO).
 
@@ -14,7 +12,7 @@ Todo esto se hace utilizando **TypeScript**, que es el lenguaje sobre el que est
 
 En los siguientes apartados veremos cada uno de estos elementos con ejemplos claros y aplicados a componentes reales.
 
-## Clases y objetos
+# Clases y objetos
 
 Una **clase** es una plantilla o modelo que se utiliza para definir cómo será algo. En ella se indican **los datos que tendrá** (atributos) y **las acciones que podrá realizar** (métodos).
 
@@ -51,11 +49,11 @@ En Angular no solemos crear objetos manualmente con `new` en los componentes bá
 
 
 
-## Miembros
+# Miembros
 
 Dentro de una clase podemos definir dos elementos principales: **propiedades** y **métodos**.
 
-### 🧩Atributos (propiedades)  
+## 🧩Atributos (propiedades)  
 
 Son las variables que pertenecen a la clase. Se utilizan para almacenar información o estado.
 
@@ -81,7 +79,7 @@ En este ejemplo:
 >
 > ![Captura que demuestra que al definir los tipos de datos, el IDE nos ayuda a identificar errores](img/poo/image-20260415111030763.png){.rounded}
 
-### ⚙️Métodos (funciones)  
+## ⚙️Métodos (funciones)  
 
 Son las funciones que se definen dentro de una clase. Se utilizan para realizar acciones o modificar los datos.
 
@@ -141,7 +139,7 @@ Este sistema nos ayuda a:
 
 
 
-### 👉Palabra reservada `this`
+## 👉Palabra reservada `this`
 
 Dentro de una clase, la palabra clave `this` se utiliza para hacer referencia al propio objeto, es decir, a sus propiedades y métodos.
 
@@ -183,7 +181,7 @@ Además, al escribir `this.` el IDE nos mostrará las sugerencias sobre los atri
 
 
 
-## Constructores
+# Constructores
 
 El **constructor** es un método especial que se ejecuta automáticamente cuando se crea un objeto a partir de una clase.
 
@@ -191,7 +189,7 @@ El **constructor** es un método especial que se ejecuta automáticamente cuando
 
 En TypeScript, se define utilizando la palabra clave `constructor`.
 
-### Constructor por defecto
+## Constructor por defecto
 
 Es un constructor que no recibe parámetros y que inicializa los atributos de la clase a unos valores predeterminados.
 
@@ -211,7 +209,7 @@ export class UsuarioComponent {
 >
 > Con este tipo de constructores, todos los objetos que creemos de esta clase, tendrán como nombre `Juan`, y como edad `30`.
 
-### Constructor personalizado
+## Constructor personalizado
 
 También podemos pasar parámetros al constructor para inicializar valores dinámicamente:
 
@@ -255,7 +253,7 @@ En este caso:
 >
 > Nosotros nos limitaremos a definir la clase del componente, y Angular gestionará su creación y ciclo de vida.
 
-### Sobrecarga de constructores
+## Sobrecarga de constructores en Angular
 
 > [!note]
 >
@@ -271,7 +269,7 @@ En este caso:
 > }
 > ```
 
-## Modificadores de acceso
+# Modificadores de acceso
 
 Los atributos y métodos de una clase pueden tener **modificadores de acceso**, que determinan desde dónde se puede acceder a ellos.
 
@@ -291,7 +289,7 @@ Estos modificadores permiten controlar el acceso a los datos y ayudan a aplicar 
 
 
 
-## Encapsulación
+# Encapsulación
 
 La encapsulación es un principio de la programación orientada a objetos que consiste en **proteger el acceso directo a los datos de una clase**, permitiendo controlarlo a través de métodos específicos.
 
@@ -299,15 +297,15 @@ La encapsulación es un principio de la programación orientada a objetos que co
 
 En TypeScript (y Angular), esto se suele implementar utilizando modificadores de acceso como `private` junto con **getters** y **setters**.
 
-### 📤Getter (obtener valor)  
+## 📤Getter (obtener valor)  
 
 Un getter permite acceder al valor de una propiedad de forma controlada.
 
-### 📥Setter (modificar valor)  
+## 📥Setter (modificar valor)  
 
 Un setter permite modificar el valor de una propiedad, pudiendo añadir validaciones o lógica adicional.
 
-### Ejemplo
+## Ejemplo
 
 ```typescript
 export class UsuarioComponent {
@@ -355,7 +353,7 @@ Con esto se consigue:
 
 
 
-## Buenas prácticas
+# Buenas prácticas
 
 A la hora de trabajar con clases y componentes en Angular, es recomendable seguir una serie de buenas prácticas que mejoran la legibilidad, el mantenimiento y la calidad del código.
 

@@ -1,9 +1,5 @@
 [TOC]
 
-# 
-
-
-
 # Introducción
 
 ![Ilustración que representa como se monta una aplicación web con componentes como si fueran piezas de puzzle](img/02-componentes/componentes.png){.rounded-5}
