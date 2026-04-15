@@ -1,10 +1,12 @@
 [TOC]
 
-# Componentes
+# 
+
+
+
+# Introducción
 
 ![Ilustración que representa como se monta una aplicación web con componentes como si fueran piezas de puzzle](img/02-componentes/componentes.png){.rounded-5}
-
-## Introducción
 
 Una aplicación en Angular se construye a partir de componentes. Incluso la aplicación más sencilla tiene al menos un componente: el componente raíz, a partir del cual se van añadiendo otros componentes que forman la interfaz.
 
@@ -24,7 +26,7 @@ Los componentes son la pieza fundamental de Angular y aportan varias ventajas:
 > [!note] 
 > Angular no sigue estrictamente el patrón MVC clásico. Se acerca más a un enfoque basado en componentes con ideas similares a MVVM (Model-View-ViewModel), donde la plantilla (HTML) actúa como la vista y el archivo TypeScript como el intermediario que gestiona los datos y la lógica. Aun así, Angular se define principalmente como un framework basado en componentes.
 
-## Entendiendo los componentes
+# Entendiendo los componentes
 
 > [!caution]
 >
@@ -74,7 +76,7 @@ Por otro lado, tenemos el archivo:
 
 De momento no es necesario modificar este archivo, pero más adelante veremos cómo se utiliza.
 
-## Editando el componente
+# Editando el componente
 
 Antes de tocar nada, para ver los cambios que vayamos haciendo en vivo, vamos a arrancar la aplicación. Abrimos una terminal en la ruta de la aplicación y escribimos el comando:
 
@@ -131,7 +133,7 @@ Ahora que ya sabemos cómo está estructurado un componente, vamos a modificarlo
 
  Sin tocar todavía TypeScript, ya podemos modificar completamente la interfaz del componente.
 
-## Creando un nuevo componente
+# Creando un nuevo componente
 
 Hasta ahora solo hemos trabajado con un único componente: el componente raíz `app`.  
 Vamos a crear un nuevo componente para ver cómo Angular nos permite dividir la aplicación en piezas más pequeñas.
@@ -186,7 +188,7 @@ Vamos a crear un nuevo componente para ver cómo Angular nos permite dividir la 
 <span style="font-weight: bold; color: #0b3e48;">🧙‍♂️</span> Este es el concepto clave de Angular: construir la aplicación combinando componentes.
 </div>
 
-## Entendiendo el archivo TypeScript del componente
+# Entendiendo el archivo TypeScript del componente
 
 En el paso anterior hemos usado una etiqueta como `<app-saludo>`, pero… ¿de dónde sale?
 
@@ -238,7 +240,7 @@ export class Saludo {}
 
 
 
-### Variantes del TS
+## Variantes del TS
 
 El código visto es el generado por el Angular CLI y, en la mayoría de los casos, se trabajará con la estructura habitual de tres archivos separados (TypeScript, HTML y CSS). Sin embargo, Angular permite cierta flexibilidad en la organización de los componentes, pudiendo simplificar su estructura en algunos casos.
 
@@ -267,7 +269,7 @@ export class Verificacion {}
 >
 > 😵‍💫Te lo explicamos por si algún día ves un componente así que no te extrañe, pero lo normal es tener 3 archivos separados para mejorar la escalabilidad y el mantenimiento del código.
 
-### Atributos y métodos
+## Atributos y métodos
 
 <div style="padding: 1rem; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px; color: #7b5e00; margin: 1rem 0; font-size:1.1rem">
   <p style="font-size: 1.5rem; text-align:center"><strong>💡 Recomendación 💡</strong></p>
@@ -336,7 +338,7 @@ Este comportamiento es una de las claves de Angular y nos permite crear interfac
 > - 🧑‍🏫Lleva el contador hasta 10. Recarga la página. ¿Qué ha pasado?. 
 > - 👩‍🏫Añade un botón para resetear el contador a 0. Otro botón para restar un 1 al contador. Evita que el contador se ponga en negativo.
 
-## 🧪 Ejercicio: Practica con componentes
+# 🧪 Ejercicio: Practica con componentes
 
 Crear un nuevo proyecto de Angular y generar tres componentes: uno de cabecera, uno de contenido (cuerpo) y uno de pie de página.
 
@@ -382,7 +384,7 @@ Una vez creados, incluir los tres componentes en la plantilla principal de la ap
 > </footer>
 > ```
 
-## 🧪 Ejercicio: Tarjeta de usuario
+# 🧪 Ejercicio: Tarjeta de usuario
 
 Sobre el proyecto que ya tienes creado, generar un nuevo componente llamado `usuario`.
 

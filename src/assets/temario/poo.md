@@ -55,7 +55,7 @@ En Angular no solemos crear objetos manualmente con `new` en los componentes bá
 
 Dentro de una clase podemos definir dos elementos principales: **propiedades** y **métodos**.
 
-### Propiedades (atributos)  
+### 🧩Atributos (propiedades)  
 
 Son las variables que pertenecen a la clase. Se utilizan para almacenar información o estado.
 
@@ -75,7 +75,13 @@ En este ejemplo:
 - Cada una tiene un tipo (`string`, `number`, `boolean`)  
 - También pueden tener un valor inicial  
 
-### Métodos (funciones)  
+> [!important]
+>
+> Aunque no es obligatorio indicar el tipo de dato con el que vamos a trabajar, es una práctica muy recomendable. **Definir los tipos ayuda a prevenir errores** difíciles de detectar más adelante, ya que JavaScript es un lenguaje poco estricto en el manejo de tipos, y así evitaremos el famoso “*[erótico resultado](https://youtu.be/F1uP2nwh0M0)*”.
+>
+> ![Captura que demuestra que al definir los tipos de datos, el IDE nos ayuda a identificar errores](img/poo/image-20260415111030763.png){.rounded}
+
+### ⚙️Métodos (funciones)  
 
 Son las funciones que se definen dentro de una clase. Se utilizan para realizar acciones o modificar los datos.
 
@@ -102,7 +108,7 @@ export class UsuarioComponent {
     nombre: string = "Juan";
 
     saludar(): void {
-        console.log("Hola " + this.nombre);
+        console.log("Hola " + nombre);
     }
 
 }
@@ -128,13 +134,14 @@ Aquí:
 - TypeScript obliga a que el valor retornado coincida con el tipo definido.
 
 Este sistema nos ayuda a:
+
 - 🔍 Detectar errores en tiempo de desarrollo.
 - 🧠 Hacer el código más claro y predecible.
 - 🛡️ Controlar mejor qué devuelve cada método.
 
 
 
-### Palabra reservada `this`
+### 👉Palabra reservada `this`
 
 Dentro de una clase, la palabra clave `this` se utiliza para hacer referencia al propio objeto, es decir, a sus propiedades y métodos.
 
@@ -180,7 +187,7 @@ Además, al escribir `this.` el IDE nos mostrará las sugerencias sobre los atri
 
 El **constructor** es un método especial que se ejecuta automáticamente cuando se crea un objeto a partir de una clase.
 
-Se utiliza principalmente para inicializar valores de las propiedades de la clase.
+**Se utiliza principalmente para inicializar valores de las propiedades de la clase.**
 
 En TypeScript, se define utilizando la palabra clave `constructor`.
 
@@ -199,6 +206,10 @@ export class UsuarioComponent {
     }
 }
 ```
+
+> [!warning]
+>
+> Con este tipo de constructores, todos los objetos que creemos de esta clase, tendrán como nombre `Juan`, y como edad `30`.
 
 ### Constructor personalizado
 
@@ -243,6 +254,22 @@ En este caso:
 > Aunque hemos visto el constructor como concepto de POO, en Angular es el propio framework quien se encarga de crear las instancias de los componentes automáticamente cuando son necesarios.
 >
 > Nosotros nos limitaremos a definir la clase del componente, y Angular gestionará su creación y ciclo de vida.
+
+### Sobrecarga de constructores
+
+> [!note]
+>
+> - En TypeScript solo puede existir un constructor por clase  
+> - Si no se define, se crea uno por defecto automáticamente  
+> - No existe sobrecarga de constructores como en otros lenguajes (como Java)  
+> - En su lugar, se utilizan parámetros opcionales o lógica interna para adaptarse a distintos casos
+>
+> ```typescript
+> constructor(nombre?: string, edad?: number) {
+>   this.nombre = nombre || "Anonimo";
+>   this.edad = edad || 0;
+> }
+> ```
 
 ## Modificadores de acceso
 
@@ -365,10 +392,15 @@ A la hora de trabajar con clases y componentes en Angular, es recomendable segui
   - Cada componente debería tener una responsabilidad clara y específica  
 
 - 👉 **Utilizar `this` correctamente**:
-  - Acceder a las propiedades y métodos de la clase mediante `this` para evitar ambigüedades  
+  - Acceder a las propiedades y métodos de la clase mediante `this` para evitar ambigüedades
+- 💬 **Incluir comentarios en el código**:
+  - Es fundamental para mejorar su comprensión y mantenimiento. 
+  - No se trata de comentar cada línea, sino de explicar partes clave o decisiones importantes, facilitando que otras personas (o tú mismo del futuro) puedan entender el código rápidamente
+
 
 Aplicar estas prácticas ayuda a escribir código más limpio, organizado y fácil de mantener, especialmente en proyectos Angular que crecen en complejidad.
 
 ![Golpe de remo](img/poo/image-20260409153706205.png){.rounded}
 
 > *No seguir estas reglas... eso si que es golpe de remo*
+
