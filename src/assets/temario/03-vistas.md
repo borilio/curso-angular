@@ -233,10 +233,6 @@ Se utiliza la sintaxis conocida como **banana in a box**🍌📦`[()]`:
         <p>Angular te aconseja que visualices una banana en una caja, para que recuerdes que primero van los corchetes (caja 📦) y dentro los paréntesis (banana 🍌).</p>
     </div>
 </div>
-
-
-
-
 **Ejemplo:**
 
 ```html
@@ -282,85 +278,199 @@ export class App {
 > - El IDE añadirá la línea de import automáticamente al inicio del código.
 > - Si hubiera otro módulo importado previamente, lo añadimos separándolo por comas. Ej: `import: [BrowserModule, FormsModule]`
 
-# 🧪Ejercicio : Binding en Angular
+# 🧪Ejercicio: Binding en Angular
 
-En este ejercicio vas a crear un **nuevo proyecto de Angular** (sin routing ni tests) llamado `demo2-binding` y trabajarás directamente sobre el **componente raíz** para practicar los distintos tipos de binding vistos en clase.
+En este ejercicio vas a crear un **nuevo proyecto de Angular** y trabajarás directamente sobre el **componente raíz** para practicar los distintos tipos de binding vistos en clase.
 
-> [!tip]
->
-> 🤔¿Con qué comando se hacía el proyecto directamente sin routing y sin testing?
+## 🎯 Objetivo del ejercicio
 
-La idea es que implementes varios ejemplos sencillos en un mismo componente para reforzar el uso de la comunicación entre la vista y el modelo.
-
-**🎯 Objetivo del ejercicio**
-
-Practicar los siguientes tipos de binding:
+Practicar los siguientes tipos de binding para reforzar el uso de la comunicación entre la vista y el modelo.
 
 - 🟨 Interpolación `{{ }}`
 - 🟦 Binding de propiedad `[ ]`
 - 🟩 Binding de eventos `( )`
-- 🟪 Two-way binding `[(ngModel)]`
+- 🟪 Doble binding `[(ngModel)]`
 
-##  Tareas a realizar
+##  ✍️Tareas a realizar
 
 ### ⬜ 0. Preparación
 
-1. Crea el proyecto `demo2-binding` con el Angular CLI.
+1. Crea el proyecto `demo2-binding` con el Angular CLI. Para enfocarnos en nuestro objetivo lo haremos sin routing y sin testing (aunque si están creados, simplemente óbvialos).
+
+   > [!tip]
+   >
+   > 🤔¿Con qué comando se hacía el proyecto directamente sin routing y sin tests?
+
 2. Abre el proyecto con VSC.
+
 3. Ejecuta la aplicación y abre la vista previa.
-4. Borra el contenido del componente raíz
+
+4. Borra el contenido del componente raíz `app`. En él haremos todo el ejercicio. No necesitarás crear nuevos componentes.
 
 ---
 
 ### 🟨 1. Interpolación
 
-Crea una propiedad en el componente llamada `titulo` y asígnale un valor inicial (o directamente o con el constructor, como quieras).
+Crea una propiedad en el componente raíz llamada `titulo` y asígnale un valor inicial (o directamente o con el constructor, como quieras).
 
 Muestra ese valor en la vista dentro de un encabezado `<h1>` utilizando interpolación.
-
-{{REVISAR DESDE AQUÍ y al final súbelo a stackblitz }}
 
 ---
 
 ### 🟦 2. Binding de propiedad
 
-Crea una propiedad que puedas utilizar para modificar dinámicamente algún atributo HTML.
+Crea un campo de entrada (`input`) cuyo tipo pueda cambiar dinámicamente utilizando binding de propiedad.
 
-Por ejemplo, puedes trabajar con estilos, imágenes o atributos como `disabled`.
+Por ejemplo, puedes alternar entre mostrar el contenido como texto normal o como contraseña (`type="text"` / `type="password"`) en función de una propiedad del componente.
+
+Es decir...
+
+```typescript
+// Si tienes un atributo así en el TS...
+tipo: string = "text";
+```
+
+¿Cómo haces para enlazar la vista (HTML) con lo que dice el modelo (TS)?
+
+```html
+<input type="text" value="Este texto debería ocultarse cuando sea password" />
+```
 
 ---
 
 ### 🟩 3. Binding de eventos
 
-Añade dos botones que interactúen con el componente:
+Añade dos botones que permitan cambiar el valor de la propiedad `tipo` del componente.
 
-- Uno que modifique el valor del `titulo`, por ejemplo poniéndolo en otro idioma.
-- Otro que lo restablezca a su valor original.
+Uno de los botones debe hacer que el campo de texto se muestre como texto normal (`text`) y el otro como contraseña (`password`).
+
+Es decir, debes conseguir que al pulsar los botones, el comportamiento del input cambie dinámicamente.
+
+```html
+<!-- Si tienes estos dos botones en la vista... -->
+<button>Mostrar</button>
+<button>Ocultar</button>
+```
+
+¿Cómo haces que estos botones modifiquen el valor de la propiedad en el componente?
+
+> [!tip]
+>
+> - Hazlo primero haciendo dos métodos separados (`mostrar()` y `ocultar()`) y enlazándolo con cada botón.
+> - ¿Se podría hacer con solo un método que conmutara el tipo?. Si está en `text` que lo cambie a `password` y viceversa.
+> - Intenta hacer un cuarto botón para que se muestre la contraseña mientras se mantiene pulsado el botón, y al soltarlo se vuelva a ocultar.
 
 ---
 
-### 🟪 4. Two-way binding
+### 🟪 4. Doble binding
 
-Añade un cuadro de texto (`input`) vinculado al `titulo` mediante `[(ngModel)]`.
+Añade otro cuadro de texto (`input`) vinculado a la propiedad `titulo` mediante `[(ngModel)]`.
 
 De esta forma, cualquier cambio en el input debe reflejarse automáticamente en el `<h1>` y viceversa.
 
----
+> [!warning]
+>
+> Para que `[(ngModel)]` funcione, recuerda que debes importar el módulo correspondiente en el componente.
 
-### 🧠 Recomendaciones
+> [!tip]
+>
+> 🍌📦Para comprobar la diferencia entre el *one-way* y *two-way biding*, puedes probar a enlazar el `input.value` al título y ver que solo va en una dirección. Y con el `ngModel` va en dos direcciones.
 
-- Trabaja todo en el **AppComponent**
-- No crees componentes nuevos
-- Reutiliza las propiedades del mismo modelo para ver cómo se comporta Angular
-- Observa cómo cambia la vista automáticamente al modificar los datos
+# 🧪Ejercicio: Selector de color
 
----
+Creamos un nuevo proyecto con nombre `demo3-color`. Igual que antes, sin routing y sin tests. Usaremos el componente raíz como antes.
 
-### 💡 Objetivo final
+Crea un `select` con varios colores y vincúlalo a una propiedad del componente usando `[(ngModel)]`. 
 
-Al terminar, deberías tener una pequeña interfaz donde:
+Utiliza ese valor para cambiar dinámicamente el color de fondo de un bloque (`div`) en la vista.
 
-- Un título se muestra dinámicamente
-- Puede cambiarse mediante botones
-- Se modifica desde un input en tiempo real
-- Y se actualizan propiedades HTML de forma reactiva
+Puedes usar este HTML como base:
+
+```html
+<select>
+  <option value="white">Blanco</option>
+  <option value="lightblue">Azul claro</option>
+  <option value="lightgreen">Verde claro</option>
+  <option value="lightcoral">Rojo claro</option>
+  <option value="lightyellow">Amarillo</option>
+</select>
+
+<div style="padding: 20px; margin-top: 10px;">
+  Este bloque cambiará de color
+</div>
+```
+
+> [!tip]
+>
+> 🤔En Angular puedes aplicar estilos CSS dinámicamente utilizando binding de propiedad sobre `style`.  
+> Esto permite modificar directamente propiedades como `color`, `width`, `height`, `backgroundColor`, entre otras.
+>
+> ```html
+> <div [style.color]="valor"></div>
+> <div [style.width]="valor"></div>
+> <div [style.backgroundColor]="valor"></div>
+> ```
+
+# ⚡Stackblitz
+
+StackBlitz es una herramienta online que permite **ejecutar proyectos de desarrollo directamente desde el navegador**, sin necesidad de instalar nada en el ordenador. Es como un entorno de trabajo listo para usar donde puedes ver, modificar y probar código en tiempo real.
+
+En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplos ya creados y pequeños proyectos de referencia. Así podremos ver cómo funcionan ciertas partes de Angular de forma práctica, sin tener que montar todo el entorno local cada vez.
+
+> [!caution]
+> Los enlaces de StackBlitz que encontrarás en este curso están pensados como material de apoyo y referencia.
+>
+> Pueden ayudarte a repasar el ejercicio, comprobar cómo está resuelto o ver alternativas una vez lo hayas intentado.
+>
+> **Sin embargo, es importante que primero intentes realizar el ejercicio por tu cuenta, sin consultar el ejemplo.**
+> El aprendizaje real se consigue practicando y resolviendo los problemas paso a paso.
+> Una vez hecho ese esfuerzo, entonces sí puedes usar los enlaces para comparar, corregir o reforzar lo aprendido.
+
+{{ HACER el demo1 ya que estamos, para tenerlos todos hechos }}
+
+
+
+<div style="
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+">
+  <a href="https://stackblitz.com/edit/demo2-binding?file=src%2Fapp%2Fapp.html" target="_blank" style="
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+  ">
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 18px; height: 18px;">
+    Abrir proyecto <code style="color:#49A2F8">demo2-binding</code> en StackBlitz
+  </a>
+</div>
+
+<div style="
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+">
+  <a href="https://stackblitz.com/edit/demo3-color?file=src%2Fapp%2Fapp.html" target="_blank" style="
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+  ">
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 18px; height: 18px;">
+    Abrir proyecto <code style="color:#49A2F8">demo3-color</code> en StackBlitz
+  </a>
+</div>
+
