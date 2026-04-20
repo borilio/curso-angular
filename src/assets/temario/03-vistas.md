@@ -103,7 +103,7 @@ Se sustituye las `{{}}` por el resultado de sumar las dos variables. El resto se
 >
 > ```html
 > <a href="{{homeUrl}}">Pulsa aquí</a>
-> <a [href]="homeURL">Pulsa aquí</a>
+> <a [href]="homeUrl">Pulsa aquí</a>
 > ```
 >
 > En ambos casos, Angular termina asignando un valor al atributo `href`.
@@ -233,6 +233,8 @@ Se utiliza la sintaxis conocida como **banana in a box**🍌📦`[()]`:
         <p>Angular te aconseja que visualices una banana en una caja, para que recuerdes que primero van los corchetes (caja 📦) y dentro los paréntesis (banana 🍌).</p>
     </div>
 </div>
+
+
 **Ejemplo:**
 
 ```html
@@ -415,6 +417,8 @@ Puedes usar este HTML como base:
 
 StackBlitz es una herramienta online que permite **ejecutar proyectos de desarrollo directamente desde el navegador**, sin necesidad de instalar nada en el ordenador. Es como un entorno de trabajo listo para usar donde puedes ver, modificar y probar código en tiempo real.
 
+<img src="img/03-vistas/stackblitz.png" alt="Imagen que representa proyectos de stackblitz como cajas de proyectos prefabricados listos para usar" style="zoom:67%;" class="rounded-4" />
+
 En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplos ya creados y pequeños proyectos de referencia. Así podremos ver cómo funcionan ciertas partes de Angular de forma práctica, sin tener que montar todo el entorno local cada vez.
 
 > [!caution]
@@ -426,15 +430,30 @@ En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplo
 > El aprendizaje real se consigue practicando y resolviendo los problemas paso a paso.
 > Una vez hecho ese esfuerzo, entonces sí puedes usar los enlaces para comparar, corregir o reforzar lo aprendido.
 
-{{ HACER el demo1 ya que estamos, para tenerlos todos hechos }}
-
-
-
 <div style="
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
+">
+  <a href="https://stackblitz.com/edit/demo1-componentes?file=src%2Fapp%2Fapp.html" target="_blank" style="
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+  ">
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
+    Abrir en StackBlitz <code style="color:#49A2F8">demo1-componentes</code>
+  </a>
+</div>
+<div style="
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
 ">
   <a href="https://stackblitz.com/edit/demo2-binding?file=src%2Fapp%2Fapp.html" target="_blank" style="
     display: inline-flex;
@@ -447,16 +466,15 @@ En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplo
     color: #ffffff;
     text-decoration: none;
   ">
-    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 18px; height: 18px;">
-    Abrir proyecto <code style="color:#49A2F8">demo2-binding</code> en StackBlitz
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
+    Abrir en StackBlitz <code style="color:#49A2F8">demo2-binding</code>
   </a>
 </div>
 
 <div style="
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
 ">
   <a href="https://stackblitz.com/edit/demo3-color?file=src%2Fapp%2Fapp.html" target="_blank" style="
     display: inline-flex;
@@ -469,8 +487,10 @@ En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplo
     color: #ffffff;
     text-decoration: none;
   ">
-    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 18px; height: 18px;">
-    Abrir proyecto <code style="color:#49A2F8">demo3-color</code> en StackBlitz
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
+    Abrir en StackBlitz <code style="color:#49A2F8">demo3-color</code>
   </a>
 </div>
+
+
 
