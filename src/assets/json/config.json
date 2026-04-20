@@ -1,5 +1,5 @@
 {
-    "preset": "MiPresetFuchsia",
+    "preset": "MiPresetPurple",
     "defaultThemeId": "typora",
     "mostrarLigadurasFuentes": true,
     "devMode": true,
