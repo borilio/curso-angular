@@ -280,6 +280,69 @@ export class App {
 > - El IDE añadirá la línea de import automáticamente al inicio del código.
 > - Si hubiera otro módulo importado previamente, lo añadimos separándolo por comas. Ej: `import: [BrowserModule, FormsModule]`
 
+# Manipulación de clases CSS
+
+Además del binding de propiedades, Angular permite modificar dinámicamente las clases CSS de un elemento HTML de distintas formas. Veamos las diferencias entre ellas:
+
+## `[class]` (clase única dinámica)
+
+Podemos asignar una clase de forma dinámica utilizando una expresión:
+
+```html
+<li [class]="esPar ? 'par' : 'impar'">
+  {{ item.nombre }}
+</li>
+```
+
+En este caso, Angular asigna una clase u otra en función de la condición (usando el operador ternario `?`).
+
+## `[class.nombre]` (activación condicional)
+
+Otra forma más común y recomendable es activar o desactivar clases de forma individual:
+
+```html
+<button class="btn"
+    [class.btn-success]="esCorrecto"
+    [class.btn-danger]="!esCorrecto">
+  Guardar
+</button>
+```
+
+Esto permite mantener varias clases a la vez y activar solo las necesarias. La clase `btn` se aplicaría siempre, y de forma condicional se aplicaría o `btn-success` o `btn-danger` dependiendo del valor de la variable `esCorrecto`.
+
+## `[ngClass]` (múltiples clases con objeto)
+
+También podemos usar `ngClass`, que permite aplicar varias clases de forma dinámica utilizando un objeto donde cada clave es una clase CSS y su valor es una condición:
+
+```html
+<button class="btn"
+  [ngClass]="{
+    'btn-success': esCorrecto,
+    'btn-danger': !esCorrecto
+  }">
+  Guardar
+</button>
+```
+
+> [!note]
+>
+> - `[class.nombreClase]` → mejor para lógica simple y puntual
+> - `[ngClass]` → mejor para lógica de estilos más compleja o combinada
+>
+> En rendimiento no hay una diferencia relevante en uso normal, la elección depende principalmente de la claridad del código y de la complejidad del caso.
+
+> [!tip]
+>
+> 🤯No te agobies con las distintas formas de hacer lo mismo en Angular.
+>
+> En muchos casos existen varias sintaxis válidas para resolver un mismo problema (`[class.nombre]`, `[ngClass]`, etc.), pero no es necesario dominarlas todas desde el principio.
+>
+> ✔️ Empieza utilizando una sola forma  
+> ✔️ Entiéndela bien y úsala con seguridad  
+> ✔️ Cuando se te quede corta o veas que el código se complica, entonces prueba alternativas
+>
+> 🧠 Lo importante no es usar “la más avanzada”, sino escribir código claro y mantenible.
+
 # 🧪Ejercicio: Binding en Angular
 
 En este ejercicio vas a crear un **nuevo proyecto de Angular** y trabajarás directamente sobre el **componente raíz** para practicar los distintos tipos de binding vistos en clase.
@@ -491,6 +554,5 @@ En este curso lo vamos a utilizar como apoyo para acceder rápidamente a ejemplo
     Abrir en StackBlitz <code style="color:#49A2F8">demo3-color</code>
   </a>
 </div>
-
 
 

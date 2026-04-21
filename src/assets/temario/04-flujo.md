@@ -36,7 +36,7 @@ En este caso, el mensaje solo aparecerá si la variable `usuarioLogueado` es ver
 >
 > ```html
 > @if (usuarioLogueado && rol === 'admin') {
->     <p>Acceso completo</p>
+>      <p>Acceso completo</p>
 > }
 > ```
 
@@ -369,7 +369,7 @@ El objetivo del ejercicio es practicar el uso de `@if` y `@for`, aplicar lógica
 
 > [!tip]
 >
-> También es posible aplicar clases de forma dinámica directamente en la plantilla sin usar `@if`, utilizando la sintaxis de Angular con `[class.nombreClase]="condición"`.
+> Recuerda que también es posible aplicar clases de forma dinámica directamente en la plantilla sin usar `@if`, utilizando la sintaxis de Angular con `[class.nombreClase]="condición"`.
 >
 > Esto permite activar o desactivar clases CSS en función de una condición de forma más compacta y suele ser una alternativa más limpia cuando la lógica es sencilla.
 >
@@ -403,3 +403,4 @@ El objetivo del ejercicio es practicar el uso de `@if` y `@for`, aplicar lógica
     Abrir en StackBlitz <code style="color:#49A2F8">demo4-flujo</code>
   </a>
 </div>
+
