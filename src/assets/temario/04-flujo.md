@@ -8,8 +8,6 @@ En las plantillas de Angular, el control del flujo permite decidir qué se muest
 
 Este cambio no solo mejora la legibilidad del código, sino que también lo acerca más a cómo se expresan las condiciones y los bucles en el propio lenguaje de programación, facilitando su comprensión, especialmente para quienes están empezando.
 
-
-
 # Condicionales 
 
 ## Condicionales simples `@if`
@@ -38,7 +36,7 @@ En este caso, el mensaje solo aparecerá si la variable `usuarioLogueado` es ver
 >
 > ```html
 > @if (usuarioLogueado && rol === 'admin') {
->   <p>Acceso completo</p>
+>     <p>Acceso completo</p>
 > }
 > ```
 
@@ -108,9 +106,9 @@ Después, en la plantilla HTML, usamos `@for` para recorrer el array y mostrar c
 
 ```html
 <ul>
-	@for (dia of diasSemana; track $index) {
-		<li>{{ dia }}</li>
-  	}
+  @for (dia of diasSemana; track $index) {
+    <li>{{ dia }}</li>
+  }
 </ul>
 ```
 
@@ -144,7 +142,7 @@ En esos casos, se suele utilizar el índice del bucle:
 
 ```html
 @for (dia of diasSemana; track $index) {
-	<li>{{ dia }}</li> 
+  <li>{{ dia }}</li> 
 }
 ```
 
@@ -206,6 +204,68 @@ Además, `@for` permite detectar casos especiales dentro del bucle, como cuando 
 
 Si la lista contiene elementos los muestra, si estuviera vacía, mostraría el párrafo del `@empty`.
 
+## Variables contextuales en `@for`
+
+Dentro de los bloques `@for`, Angular pone a disposición una serie de variables implícitas que podemos utilizar durante la iteración:
+
+| Variable | Significado                               |
+| -------- | ----------------------------------------- |
+| `$count` | Número total de elementos en la colección |
+| `$index` | Índice del elemento actual                |
+| `$first` | Indica si el elemento es el primero       |
+| `$last`  | Indica si el elemento es el último        |
+| `$even`  | Indica si el índice es par                |
+| `$odd`   | Indica si el índice es impar              |
+
+Estas variables están siempre disponibles con esos nombres, pero también se pueden renombrar utilizando `let` dentro del propio `@for`:
+
+```html
+<ul>
+@for (item of items; track item.id; let esPar = $even, indice = $index) {
+  <li class="{{ esPar ? 'par' : 'impar' }}">
+    {{ indice }} - {{ item.nombre }}
+  </li>
+}
+</ul>
+```
+
+En este caso:
+
+\- Si el elemento está en una posición par → se aplica la clase `par`  
+\- Si está en una posición impar → se aplica la clase `impar`
+
+> [!tip]
+>
+> El renombrar a las variables de contexto es especialmente útil cuando trabajamos con bucles anidados, ya que permite acceder a las variables del `@for` externo desde uno interno sin confusión de nombres.
+>
+> ```html
+> <ul>
+> <!-- Bucle de categorías -->
+> @for (categoria of categorias; track categoria.id; let i = $index) {
+>   <li>
+>     Categoría {{ i }}: {{ categoria.nombre }}
+>     
+>     <ul>
+>     <!-- Bucle de productos -->
+>     @for (producto of categoria.productos; track producto.id; let j = $index) {
+>       <li>
+>         Producto {{ j }} de la categoría {{ i }}: {{ producto.nombre }}
+>       </li>
+>     }
+>     </ul>
+>     
+>   </li>
+> }
+> </ul>
+> ```
+>
+> En este ejemplo:
+>
+> \- `i` representa el índice de la categoría (bucle externo)
+> \- `j` representa el índice del producto (bucle interno)
+>
+> Gracias al uso de alias (`let i = $index`, `let j = $index`), podemos acceder a ambos índices sin que se sobrescriban o generen confusión.
+
 # Condicionales múltiples `@switch`
 
 El bloque `@switch` permite mostrar diferentes contenidos en función del valor de una variable. Es el equivalente moderno de la estructura `switch` de TypeScript, pero aplicado directamente en la plantilla de Angular.
@@ -236,15 +296,25 @@ En lugar de hacer múltiples `@else if` encadenados, podemos usar `@switch` para
 >
 > `@switch` es especialmente útil cuando una variable puede tener varios estados definidos y queremos mostrar una vista distinta (u otro componente) para cada uno de ellos de forma ordenada y mantenible.
 
+# Documentación oficial
 
+> [!note]
+>
+> Puedes encontrar más información ampliada y ejemplos en la documentación oficial de Angular sobre control de flujo:
+>
+> https://angular.dev/guide/templates/control-flow
 
-# Antes en Angular
+# Érase una vez... en Angular
 
-Antes de la llegada de la sintaxis de control de flujo moderna (`@if`, `@for`, `@switch`), Angular utilizaba directivas estructurales como `*ngIf` y `*ngFor` para manejar condiciones y bucles en las plantillas.
+![Imagen del profesor en un futuro, que alimenta a las palomas en un parque y tiene tatuados *ngFor y *ngIf como símbolo de nostalgia y de una época donde fue feliz](img/04-flujo/image-20260421120343733.png){.rounded-4}
 
-No es necesario profundizar en su uso, ya que hoy en día han sido sustituidas, pero es importante reconocerlas porque aún podemos encontrarlas en proyectos antiguos.
+> Antes... todo esto era campo.
 
-Era prácticamente igual, pero en lugar de usar la sintaxis más tradicional parecida a un lenguaje de programación con las `{ }`, era como un atributo HTML del elemento que queríamos evaluar.
+Antes de la llegada de la sintaxis de control de flujo moderna (`@if`, `@for`, `@switch`) en Angular 17+, utilizaba directivas estructurales como `*ngIf` y `*ngFor` para manejar condiciones y bucles en las plantillas.
+
+No es necesario profundizar en su uso, ya que hoy en día han sido sustituidas, pero es importante reconocerlas porque aún podemos encontrarlas en proyectos  o ejemplos antiguos.
+
+Era prácticamente igual, pero en lugar de usar la sintaxis más tradicional parecida a un lenguaje de programación con las `{ }`, era como un atributo del elemento HTML el cual queríamos aplicar la lógica.
 
 ## `*ngIf`
 
@@ -264,14 +334,72 @@ Era prácticamente igual, pero en lugar de usar la sintaxis más tradicional par
 </ul>
 ```
 
-> [!note]
->
-> 👴Estas directivas eran la forma anterior de controlar el flujo en plantillas, pero en Angular moderno (17+) se han reemplazado por una sintaxis más clara y estructurada basada en bloques como `@if` y `@for`.
-
 > [!warning]
 >
 > Angular no “eliminó” `*ngIf` y `*ngFor` en Angular 17, sino que `@if` y `@for` son el enfoque recomendado en proyectos nuevos. `*ngIf` y `*ngFor` siguen funcionando para mantener compatibilidad.
 
 
 
-{{ “Pensar” en un ejercicio para practicar con todo esto. Se puede hacer un proyecto un poco más grande, con componentes para agregarle todo lo que vayamos necesitando}}
+# 🧪 Ejercicio: Control de flujo
+
+1. Crea un proyecto nuevo llamado `demo4-flujo` como siempre hacemos.
+2. En el componente raíz (`app`) creamos un atributo que es un array de temperaturas. 
+3. Lo inicializamos de forma automática en el constructor (por ejemplo, 20 valores aleatorios entre 0 y 40).
+4. Una vez generado e inicializado el array, muéstralo en la plantilla utilizando un `@for`, de forma que cada temperatura aparezca como un elemento dentro de una lista (`ul`).
+5. Además, crea tres clases CSS para representar visualmente las temperaturas:
+   - Temperaturas altas → color rojo  
+   - Temperaturas normales → color verde  
+   - Temperaturas frías → color azul  
+6. Aplica la clase correspondiente a cada elemento en función de su valor (por ejemplo, puedes decidir tú los rangos).
+7. Opcionalmente, puedes mostrar también el índice de cada elemento.
+
+El objetivo del ejercicio es practicar el uso de `@if` y `@for`, aplicar lógica en la plantilla y trabajar con clases dinámicas en función de los datos.
+
+![Captura de ejemplo de lo que tendría que salir una vez hecho el ejercicio](img/04-flujo/image-20260421133202489.png){.rounded}
+
+
+
+> [!note]
+>
+> Como refuerzo, haz lo siguiente:
+>
+> - La inicialización aleatoria, en lugar del constructor, se hará en un método aparte que será llamado en el constructor y además cuando pulsemos un botón. De esta forma, al iniciar el proyecto se mostrarán unas temperaturas, y en cualquier momento podremos obtener otras sin tener que recargar la página por completo.
+>- Haz que el número de temperaturas sea otro atributo, para poder cambiarlo fácilmente.
+> 
+
+> [!tip]
+>
+> También es posible aplicar clases de forma dinámica directamente en la plantilla sin usar `@if`, utilizando la sintaxis de Angular con `[class.nombreClase]="condición"`.
+>
+> Esto permite activar o desactivar clases CSS en función de una condición de forma más compacta y suele ser una alternativa más limpia cuando la lógica es sencilla.
+>
+> ```html
+> <span class="ficha" 
+>       [class.frio]="temp < 15" 
+>       [class.normal]="temp >= 15 && temp < 30"
+>       [class.caliente]="temp >= 30"
+> >...</span>
+> ```
+
+
+
+<div style="
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+">
+  <a href="https://stackblitz.com/edit/demo4-flujo" target="_blank" style="
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+  ">
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
+    Abrir en StackBlitz <code style="color:#49A2F8">demo4-flujo</code>
+  </a>
+</div>
