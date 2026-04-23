@@ -129,17 +129,19 @@ Aunque Angular moderno trabaja principalmente con componentes *standalone*, los 
 
 > [!important]
 >
-> 🎯Los módulos no han desaparecido, pero han dejado de ser obligatorios en la mayoría de casos. Se siguen usando principalmente para organización, retrocompatibilidad y casos específicos como librerías o lazy loading.
+> 🎯Los módulos no han desaparecido, pero han dejado de ser obligatorios en la mayoría de casos. Se siguen usando principalmente para organización, retrocompatibilidad y casos específicos como librerías o *lazy loading*.
 
-# Crear un módulo paso a paso
+# 🧪Crear un módulo paso a paso
 
-{{ Aquí veremos como crear un módulo. Hay que pensar un ejemplo que se vea útil y no sea muy complejo }}
+Aunque Angular moderno trabaja principalmente con componentes *standalone*, los módulos siguen siendo importantes para entender proyectos antiguos y ciertos patrones de organización que todavía podemos encontrar en aplicaciones reales.
+
+{{ Aquí veremos como crear un módulo. Hay que pensar un ejemplo que se vea útil y no sea muy complejo. Creo que podemos crear varios componentes (tipo cabecera, contenido y footer) y crear componentes sueltos (botón, imagen, cositas) y agruparlo todo en un módulo para no tener que importar los componentes por separado en cada uno de los componentes (cabecera, contenido y footer) }}
+
+{{Al hacer el ejemplo, explicar lo de crear una carpeta llamada components }}
 
 
 
-
-
-# 🧪Ejercicio: Módulos
+# Ejercicio: Módulos
 
 
 
