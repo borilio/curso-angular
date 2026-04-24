@@ -201,6 +201,15 @@ Ya podemos abrir el el proyecto con Visual Studio Code y añadimos la hoja de es
 ]
 ```
 
+> [!important]
+>
+> **El orden en el que se añaden las hojas de estilo en la propiedad `styles` de `angular.json` es importante.**
+>
+> Angular carga los estilos de arriba hacia abajo, por lo que los últimos pueden sobrescribir a los anteriores.
+>
+> Por eso, es recomendable **añadir primero librerías externas** (como Bootstrap) **y después nuestros estilos** personalizados.
+>
+
 Así ya podríamos usar clases de Bootstrap directamente en los componentes, por ejemplo:
 
 ```html
@@ -246,13 +255,25 @@ ng g c components/listado
 >
 > 🙈Puedes añadir el comando `--skip-tests` en la creación de los componentes, ya que no vamos a usar testing por ahora y así nos enfocamos mejor.
 
-- 🦸 `ficha-heroe` → representará una ficha de héroe.
+- 🪪 `ficha-heroe` → representará una ficha de héroe.
 - 📋 `listado` → mostrará varias fichas.
 - 🔘 `boton` → botón reutilizable personalizado superchulo.
 
 > [!important]
 >
-> {{Nota sobre el camelCase al crear el componente}}
+> 🐫 Fíjate que cuando creas un componente usando *camelCase*, por ejemplo con:
+>
+> ```shell
+> ng g c components/fichaHeroe
+> ```
+>
+> Angular CLI adapta automáticamente el nombre según el contexto:
+>
+> - 🧱 **Clase** → usa *PascalCase*: `FichaHeroe`  
+> - 📄 **Archivo** → usa *kebab-case*: `ficha-heroe.ts`, `ficha-heroe.html` y `ficha-heroe.css`
+>
+> Esto no es casual: cada formato sigue una convención distinta en el desarrollo. De esta forma, Angular mantiene una nomenclatura consistente sin que tengamos que preocuparnos por ello.
+>
 
 ### Mostrar los componentes
 
@@ -277,15 +298,16 @@ El componente raíz será el punto de entrada de la aplicación y será sobre el
 
 ### FichaHeroe
 
-Representará una ficha con los datos de un héroe. La idea es repetir esta ficha en el listado.
+Representará una ficha con los datos de un héroe. La idea es repetir esta ficha en el listado. También incluye el componente `boton`.
 
 ````typescript
 // ficha-heroe.ts
 import { Component } from '@angular/core';
+import { Boton } from '../boton/boton';
 
 @Component({
   selector: 'app-ficha-heroe',
-  imports: [],
+  imports: [Boton],
   templateUrl: './ficha-heroe.html',
   styleUrl: './ficha-heroe.css',
 })
@@ -307,6 +329,7 @@ export class FichaHeroe {
   } @else {
     <p>🔴 Estado: Inactivo</p>
   }
+  <app-boton></app-boton>
 </div>
 ```
 
@@ -321,9 +344,9 @@ De momento no vamos a usar arrays ni lógica compleja, simplemente repetimos el 
 <div class="container mt-3">
   <h2>Listado de héroes</h2>
 
-  <app-heroe></app-heroe>
-  <app-heroe></app-heroe>
-  <app-heroe></app-heroe>
+  <app-ficha-heroe></app-ficha-heroe>
+  <app-ficha-heroe></app-ficha-heroe>
+  <app-ficha-heroe></app-ficha-heroe>
 </div>
 ```
 
@@ -364,7 +387,6 @@ export class Boton {
 >
   {{ cargando ? '⌛Cargando...' : '🔍Ver más' }}
 </button>
-
 ```
 
 ```css
@@ -384,6 +406,31 @@ export class Boton {
 > [!note]
 >
 > Es un botón que al pulsarlo, alterna entre el estado `cargando=true` y `cargando=false` y muestra un estilo y texto diferente para cada estado.
+
+## Stackblitz
+
+Puedes ver el estado actual del proyecto base funcionando en Stackblitz.
+
+<div style="
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+">
+  <a href="https://stackblitz.com/edit/demo5-modulos-base" target="_blank" style="
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #ffffff;
+    text-decoration: none;
+  ">
+    <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
+    Abrir en StackBlitz <code style="color:#49A2F8">demo5-modulos-base</code>
+  </a>
+</div>
 
 ## Clonar el proyecto desde Git
 
@@ -507,7 +554,7 @@ export class SharedModule {}
 
 Hasta ahora la aplicación funcionaba con una jerarquía directa de componentes:
 
-````
+````htaccess
 🏠 AppComponent  
 └── 📋 Listado  
 	└── 🦸 FichaHeroe  
@@ -522,12 +569,12 @@ A partir de ahora introducimos un módulo llamado `SharedModule` que agrupa part
 
 La estructura pasa a ser:
 
-```
+```htaccess
 🏠 AppComponent  
 └── 📋 Listado  
-	└── 🧩 SharedModule  
-        ├── 🦸 FichaHeroe  
-        └── 🔘 Boton 
+    └── 🧩 SharedModule  
+         ├── 🦸 FichaHeroe  
+         └── 🔘 Boton 
 ```
 
 El componente `Listado` seguirá utilizando `FichaHeroe`, pero en lugar de importarlo directamente, lo hará a través del módulo `shared`.
@@ -565,7 +612,7 @@ import { SharedModule } from './modules/shared/shared-module';
 })
 export class App {
   protected readonly title = signal('heroes');
-}}
+}
 ```
 
 > [!warning]
@@ -582,16 +629,12 @@ Sin embargo, `FichaHeroe` y `Boton` ya no se importan de forma individual, sino 
 >
 > **Aunque en este ejemplo el cambio es pequeño, esta forma de trabajar resulta muy útil cuando el número de componentes crece, ya que mejora la organización y evita imports repetidos.**
 
-
-
-{{Hacerlo en stackblitz y ponerlo también}}
-
 <div style="
   display: flex;
   justify-content: center;
   margin: 20px 0px;
 ">
-  <a href="https://stackblitz.com/PONERRUTA" target="_blank" style="
+  <a href="https://stackblitz.com/edit/demo5-modulos" target="_blank" style="
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -603,7 +646,7 @@ Sin embargo, `FichaHeroe` y `Boton` ya no se importan de forma individual, sino 
     text-decoration: none;
   ">
     <img src="img/logo-stackblitz.png" alt="StackBlitz" style="width: 1.5rem">
-    Abrir en StackBlitz <code style="color:#49A2F8">heroes-modulos</code>
+    Abrir en StackBlitz <code style="color:#49A2F8">demo5-modulos</code>
   </a>
 </div>
 
