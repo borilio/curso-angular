@@ -201,35 +201,9 @@ Ya podemos abrir el el proyecto con Visual Studio Code y añadimos la hoja de es
 ]
 ```
 
-> [!important]
->
-> **El orden en el que se añaden las hojas de estilo en la propiedad `styles` de `angular.json` es importante.**
->
-> Angular carga los estilos de arriba hacia abajo, por lo que los últimos pueden sobrescribir a los anteriores.
->
-> Por eso, es recomendable **añadir primero librerías externas** (como Bootstrap) **y después nuestros estilos** personalizados.
->
-
-Así ya podríamos usar clases de Bootstrap directamente en los componentes, por ejemplo:
-
-```html
-class="btn btn-primary"
-class="card p-3"
-```
-
 > [!tip]
 >
-> Bootstrap también puede añadirse de otras formas en un proyecto Angular, por ejemplo:
->
-> - Incluyéndolo mediante CDN en el `index.html`, sin instalarlo localmente con `npm`.
-> - Usando `@import` directamente en `styles.css`, importando la hoja de estilos o bien local instalada con `npm` o bien remota con `cdn`.
->
-> Sin embargo, la forma recomendada es instalarlo con `npm` y añadirlo en `angular.json`, ya que:
->
-> - 📦 Se integra correctamente en el sistema de build de Angular.
-> - 🚀 Evita dependencias externas en tiempo de ejecución.
-> - 🧩 Permite un mejor control de versiones y mantenimiento.
-> - 🔍 Centraliza la configuración de estilos del proyecto.
+> 💊Se recomienda que consultes la [píldora de Bootstrap](/tema/boostrap) incluida en el temario, donde profundizamos un poco más como añadir Bootstrap a un proyecto Angular.
 
 ## Crear los componentes
 

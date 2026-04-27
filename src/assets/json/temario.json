@@ -382,7 +382,19 @@
           "severity": "primary",
           "outlined": false,
           "habilitado": true 
+        },
+        {
+          "id": "bootstrap",
+          "orden": 9,
+          "titulo": "Añadir Bootstrap a un proyecto Angular",
+          "descripcion": "Añadir Bootstrap a un proyecto Angular",
+          "archivoMd": "bootstrap.md",
+          "icon": "pi pi-angle-right",
+          "severity": "primary",
+          "outlined": false,
+          "habilitado": true 
         }
+
       ]
     }
   ]
