@@ -45,12 +45,6 @@
         "texto": "Aquí se mostrarán todos los enlaces externos que usaremos durante el curso, tales como ejercicios, calendarios, plataforma educativa, plataforma de mensajería, etc.",
         "enlaces": [
             {
-                "icon": "pi pi-file-check",
-                "desc": "Enunciados Ejercicios",
-                "descLarga": "Documento con los ejercicios propuestos durante el curso",
-                "href": "espacio para el enlace a google docs"
-            },
-            {
                 "icon": "pi pi-folder-open",
                 "desc": "Carpeta ejercicios resueltos",
                 "descLarga": "Carpeta compartida con todos los ejercicios realizados en directo durante el curso",
@@ -59,8 +53,9 @@
             
             {
                 "icon": "pi pi-video",
-                "desc": "Enlace para aula virtual (12/May/2026)",
-                "href": ""
+                "desc": "Enlace Zoom (12/May/2026) ID: 842 5234 3724",
+                "href": "https://us06web.zoom.us/j/84252343724?pwd=t7bdomqZspc54ttgoecYKXUsdB0jM9.1",
+                "disabled": true
             },
             {
                 "icon": "pi pi-discord",
