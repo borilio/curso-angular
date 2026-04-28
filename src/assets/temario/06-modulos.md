@@ -528,7 +528,7 @@ export class SharedModule {}
 
 Hasta ahora la aplicación funcionaba con una jerarquía directa de componentes:
 
-````htaccess
+````text
 🏠 AppComponent  
 └── 📋 Listado  
 	└── 🦸 FichaHeroe  
@@ -543,7 +543,7 @@ A partir de ahora introducimos un módulo llamado `SharedModule` que agrupa part
 
 La estructura pasa a ser:
 
-```htaccess
+```text
 🏠 AppComponent  
 └── 📋 Listado  
     └── 🧩 SharedModule  
