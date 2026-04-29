@@ -101,6 +101,12 @@ Y nuestra aplicación debería verse así si navegamos a la opción de <kbd>List
 
 ![Captura de pantalla de como se mostraría el componente heroes-list](img/10-modelos/image-20260428131751315.png){.rounded}
 
+> [!note]
+>
+> 📦 Puedes descargar las imágenes de los avatares desde el siguiente enlace: https://github.com/borilio/heroes/releases/download/img-avatars/avatars.zip
+>
+> Una vez descargado el archivo, deberás descomprimirlo y colocar la carpeta `avatars` en `public/img/` para que la aplicación pueda acceder correctamente a las imágenes.
+
 # El problema de no tener modelos
 
 Hasta ahora hemos trabajado con un array de objetos dentro del componente `heroes-list`, donde todos los héroes siguen una estructura más o menos consistente.
