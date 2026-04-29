@@ -434,7 +434,7 @@ Nuestro componente `navbar.html`, usando ya por completo el routing de Angular, 
 > export class Navbar {}
 > ```
 
-![Gif animado donde se ve en funcionamiento el routing de Angular](img/09-routing/routing-funcionando.gif){.rounded-3}
+![Gif animado donde se ve en funcionamiento el routing de Angular](img/09-routing/routing-funcionando.gif){.rounded}
 
 > [!tip]
 >
@@ -467,4 +467,3 @@ Nuestro componente `navbar.html`, usando ya por completo el routing de Angular, 
         </a>
     </div>
 </div>
-

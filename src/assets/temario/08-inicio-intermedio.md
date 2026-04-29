@@ -22,6 +22,8 @@
 
 # Punto de partida
 
+![Imagen de nuestro personaje disfrazado de superhéroe en una pose épica tras vencer a hordas malignas de bugs](img/08-inicio-intermedio/image-20260429113207425.png){.rounded-4}
+
 A partir de este punto, donde **ya hemos asentado las bases del desarrollo con Angular** (componentes, plantillas, binding, etc.), vamos a cambiar ligeramente la forma de trabajar. 
 
 En lugar de crear pequeños proyectos independientes para cada concepto nuevo, **empezaremos a construir una aplicación de forma progresiva**, añadiendo funcionalidades paso a paso. 
@@ -58,7 +60,7 @@ Para trabajar con este proyecto tienes varias opciones y siempre se mostrará lo
 
 En el repositorio del proyecto se han definido distintas versiones mediante **tags de Git**, que puedes consultar en el siguiente enlace:
 
-👉 https://github.com/borilio/heroes/tags
+🏷️ https://github.com/borilio/heroes/tags
 
 La primera versión disponible es **v1-base**, que corresponde a la base inicial del proyecto.
 
@@ -74,7 +76,7 @@ A lo largo del curso iremos utilizando el mismo repositorio, pero iremos indican
 
 
 
-![Captura de la versión v1-base del proyecto Héroes](img/08-inicio-intermedio/image-20260427190955350.png){.rounded-3}
+![Captura de la versión v1-base del proyecto Héroes](img/08-inicio-intermedio/image-20260427190955350.png){.rounded}
 
 La aplicación está organizada con una estructura pensada para mantener el código ordenado, escalable y fácil de entender a medida que el proyecto crece (que crecerá).
 

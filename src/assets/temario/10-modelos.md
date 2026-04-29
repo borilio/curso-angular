@@ -99,7 +99,7 @@ El siguiente paso sería mostrar dicho array de objetos en la vista `heroes-list
 
 Y nuestra aplicación debería verse así si navegamos a la opción de <kbd>Listado</kbd>. Mostrando cada objeto del array `heroes` en una tarjeta.
 
-![Captura de pantalla de como se mostraría el componente heroes-list](img/10-modelos/image-20260428131751315.png){.rounded-3}
+![Captura de pantalla de como se mostraría el componente heroes-list](img/10-modelos/image-20260428131751315.png){.rounded}
 
 # El problema de no tener modelos
 
