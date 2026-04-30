@@ -104,7 +104,7 @@
       "mostrarTitulo": true,
       "descripcion": "Temas intermedios: servicios, routing, peticiones HTTP.",
       "expandible": true,
-      "contraido": true,
+      "contraido": false,
       "habilitado": true,
       "emoji": "🟠",
       "color": "#fca40070",
@@ -174,7 +174,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "pipes",
@@ -188,11 +188,11 @@
           "habilitado": true
         },
         {
-          "id": "despliege",
+          "id": "crud",
           "orden": 15,
-          "titulo": "15 - Despliegue de la aplicación",
-          "descripcion": "Despliegue de la aplicación",
-          "archivoMd": "15-despliegue.md {{piensa en si poner directamente la píldora, o hacer un archivo que tenga un enlace a la píldora, pero hay que mantener la píldora}}",
+          "titulo": "15 - CRUD completo con HTTP",
+          "descripcion": "CRUD completo con HTTP",
+          "archivoMd": "15-crud.md",
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,
@@ -220,7 +220,7 @@
       "descripcion": "Avanzado: Formularios, optimización, lazy loading, testing y mejores prácticas.",
       "expandible": true,
       "contraido": true,
-      "habilitado": true,
+      "habilitado": false,
       "emoji": "🔴",
       "color": "#FF000050",
       "icon": "pi pi-box",
@@ -234,7 +234,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "danger",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "formularios",
@@ -245,7 +245,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "danger",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "lazyload",
@@ -256,7 +256,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "danger",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "guards",
@@ -267,7 +267,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "danger",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "testing",
@@ -278,7 +278,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "danger",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         }
       ]
     },
