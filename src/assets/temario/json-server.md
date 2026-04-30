@@ -22,74 +22,80 @@ Tendremos que crear un archivo llamado  `db.json` (puede llamarse de otra forma,
 
 ```json
 {
-  "usuarios": [{
-    "id": 1,
-    "usuario": "John Doe",
-    "email": "john.doe@gmail.com"
-  },
-  {
-    "id": 2,
-    "usuario": "Jane Smith",
-    "email": "jane.smith@yahoo.com"
-  },
-  {
-    "id": 3,
-    "usuario": "Carlos García",
-    "email": "carlos.garcia@gmail.com"
-  },
-  {
-    "id": 4,
-    "usuario": "María López",
-    "email": "maria.lopez@hotmail.com"
-  }],
-  "heroes": [{
-      "id": "dc-batman",
-      "nombre": "Batman",
-      "alter_ego": "Bruce Wayne",
-      "poder": 85,
-      "activo": true
-    },
-    {
-      "id": "dc-wonder",
-      "nombre": "Wonder Woman",
-      "alter_ego": "Diana Prince",
-      "poder": 90,
-      "activo": true
-    },
-    {
-      "id": "dc-superman",
-      "nombre": "Superman",
-      "alter_ego": "Clark Kent",
-      "poder": 100,
-      "activo": true
-    },
-    {
-      "id": "marvel-captain",
-      "nombre": "Captain America",
-      "alter_ego": "Steve Rogers",
-      "poder": 80,
-      "activo": true
-    },
-    {
-      "id": "marvel-iron",
-      "nombre": "Iron Man",
-      "alter_ego": "Tony Stark",
-      "poder": 88,
-      "activo": true
-    },
-    {
-      "id": "marvel-spider",
-      "nombre": "Spider-Man",
-      "alter_ego": "Peter Parker",
-      "poder": 75,
-      "activo": true
-    }
-  ]
+    "users": [
+        {
+            "id": 1,
+            "name": "Happy Hogan",
+            "email": "happy.hogan@starkindustries.com",
+            "active": true
+        },
+        {
+            "id": 2,
+            "name": "Nick Fury",
+            "email": "nick.fury@shield.gov",
+            "active": true
+        },
+        {
+            "id": 3,
+            "name": "Alfred Pennyworth",
+            "email": "alfred.pennyworth@wayneenterprises.com",
+            "active": true
+        },
+        {
+            "id": 4,
+            "name": "Lois Lane",
+            "email": "lois.lane@dailyplanet.com",
+            "active": true
+        }
+    ],
+    "heroes": [
+        {
+            "id": 1,
+            "name": "Spiderman",
+            "alterEgo": "Peter Parker",
+            "power": 80,
+            "active": true,
+            "imageUrl": "img/avatars/spiderman.svg",
+            "universe": "Marvel"
+        },
+        {
+            "id": 2,
+            "name": "Batman",
+            "alterEgo": "Bruce Wayne",
+            "power": 50,
+            "active": true,
+            "imageUrl": "img/avatars/batman.svg",
+            "universe": "DC"
+        },
+        {
+            "id": 3,
+            "name": "Hulk",
+            "alterEgo": "Bruce Banner",
+            "power": 150,
+            "active": true,
+            "imageUrl": "img/avatars/hulk.svg",
+            "universe": "Marvel"
+        },
+        {
+            "id": 4,
+            "name": "Iron Man",
+            "alterEgo": "Tony Stark",
+            "power": 90,
+            "active": false,
+            "imageUrl": "img/avatars/ironman.svg",
+            "universe": "Marvel"
+        }
+    ]
 }
-
 ```
 
-Este ejemplo tendría 2 'tablas' y serían `usuarios` y `heroes`. Cada una de ellas tendrían sus propios campos. 
+> [!tip]
+>
+> Puedes descargarte una versión completa del `db.json` con más usuarios y héroes en el siguiente enlace:
+>
+> 📦https://github.com/borilio/heroes-backend/blob/master/db.json
+
+Este ejemplo tendría 2 'tablas' y serían `users` y `heroes`. Cada una de ellas tendrían sus propios campos. 
 
 Para que NodeJS empiece a servir estos datos localmente tendremos que abrir una terminal en la carpeta donde tengamos el archivo `db.json` y escribir lo siguiente:
 
@@ -99,14 +105,14 @@ json-server --watch db.json
 
 Esto abrirá algo parecido a:
 
-```shell
+```text
   \{^_^}/ hi!
 
   Loading db.json
   Done
 
   Resources
-  http://localhost:3000/usuarios
+  http://localhost:3000/users
   http://localhost:3000/heroes
 
   Home
@@ -116,11 +122,37 @@ Esto abrirá algo parecido a:
   Watching...
 ```
 
-Y así tendremos un backend montado fácilmente en 30 segundos. 
+Y así tendremos un **backend totalmente funcional** montado en 30 segundos. 
+
+> [!warning]
+>
+> Si cierras la ventana de la terminal se cerrará el backend. Deja la ventana abierta mientras quieras hacer peticiones.
+
+> [!note]
+>
+> Aunque lo estemos utilizando como un entorno de pruebas, **json-server se comporta como un backend real**.
+>
+> Permite realizar operaciones completas de una API REST:
+>
+> - 📥 GET (leer datos)
+> - 📤 POST (crear registros)
+> - ✏️ PUT / PATCH (actualizar datos)
+> - 🗑️ DELETE (eliminar registros)
+>
+> Además, los cambios **son persistentes**, es decir:
+>
+> ✔ si añades o eliminas datos, estos se modifican en el archivo `db.json`  
+> ✔ los datos se mantienen entre reinicios del servidor  
+
+> [!tip]
+>
+> Por este motivo es muy recomendable mantener una copia original del archivo `db.json`, ya que cualquier modificación durante las pruebas puede alterar el estado inicial de los datos.
+>
+> Una práctica habitual es guardar una versión “limpia” del archivo para poder restaurarlo fácilmente cuando sea necesario.
 
 ### Retraso artificial
 
-Ya que el servidor es local y la respuesta será muy rápida, se puede añadir un retraso artificial en la respuesta del backend para probar tiempos de carga y demás. En el siguiente ejemplo le añadiríamos 1500ms a lo que ya tarde la respuesta. 
+Ya que el servidor es local y la respuesta será muy rápida, se puede añadir un retraso artificial en la respuesta del backend para probar tiempos de carga y demás. En el siguiente ejemplo le añadiríamos 1500 milisegundos extra a la respuesta.
 
 ```shell
 json-server --watch --delay 1500 db.json
@@ -146,14 +178,38 @@ Limitará a 5 elementos el resultado de la consulta anterior. Recordar que para 
 
 ## My JSON Server
 
-Usando la web https://my-json-server.typicode.com/, se puede hacer lo mismo pero además funcionará remotamente y sin necesidad de instalar nada. Tan sólo habrá que colocar el archivo `db.json` (ahora si debe llamarse así) en la raíz de un **repositorio público de GitHub** y acceder a la url siguiente usando tu nombre de usuario de GitHub y el nombre del repositorio donde esté el archivo `db.json`.
+![Captura de la web My JSON Server](img/json-server/image-20260430130808997.png){.rounded-4}
 
-https://my-json-server.typicode.com/tunombredeusuario/turepositorio
+También existe una versión online de `json-server` que no requiere instalación: https://my-json-server.typicode.com/.
 
-Aquí se puede ver un ejemplo funcionando, de un archivo ``json`` subido a un repositorio:
+Permite crear una API REST pública usando un repositorio de GitHub con un archivo `db.json`.
 
- https://my-json-server.typicode.com/borilio/curso-angular
+Solo hay que:
+
+1. Crear un repositorio público en GitHub (`<tu-usuario>/<tu-repo>`).
+2. Añadir un archivo `db.json` en la raíz.
+3. Acceder a la URL: `https://my-json-server.typicode.com/<tu-usuario>/<tu-repo>`
+
+**Ejemplo:** 
+
+https://my-json-server.typicode.com/borilio/heroes-backend
+
+Desde ahí podemos acceder a endpoints como:
+
+- `/users`
+- `/heroes`
+
+> [!important]
+>
+> - Debe ser un repositorio público  
+> - El archivo debe llamarse `db.json`  
+> - No requiere instalación de nada ni servidor local  
+> - Es para pruebas por si necesitas un backend remot. Tiene una limitación de 30 elementos por tabla.
 
 > [!caution]
 >
-> **Diferencia importante:** Instalar json-server localmente permite hacer cambios persistentes (POST, PUT, PATCH, DELETE) que se guardarán en el archivo `db.json`. En cambio, my-json-server remoto acepta estas peticiones pero **no las persiste**; los cambios se pierden al reiniciar el servidor o al volver a acceder, ya que los datos se cargan desde el archivo en GitHub pero no se modifican.
+> **Diferencia importante:** Instalar json-server localmente permite hacer cambios persistentes (`POST`, `PUT`, `PATCH`, `DELETE`) que se guardarán en el archivo `db.json`. 
+>
+> En cambio, `my-json-server` remoto acepta estas peticiones pero **no las persiste**; los cambios se pierden al reiniciar el servidor o al volver a acceder, ya que los datos se cargan desde el archivo en GitHub pero no se modifican.
+>
+> Para peticiones de tipo `GET` funcionan igual ambos.
