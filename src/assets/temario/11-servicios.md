@@ -10,7 +10,7 @@ Por un lado, se encargan de la parte visual (la plantilla HTML) y, por otro, tam
 
 > [!note]
 >
-> 🍽️Imagina un restaurante en el que una misma persona se encarga de todo: te da la bienvenida, toma nota, cocina la comida y la sirve. Y hace lo mismo para todos los clientes. No sería eficiente.
+> 🍽️ Imagina un restaurante en el que una misma persona se encarga de todo: te da la bienvenida, toma nota, cocina la comida y la sirve. Y hace lo mismo para todos los clientes. No sería eficiente.
 
 Aquí es donde entran en juego los **servicios**.
 
@@ -54,7 +54,7 @@ Para los componentes, todo seguirá funcionando igual: seguirán pidiendo datos 
 >   
 > - 🍔🍟🥤 **Menú → Datos**: Es la información que el componente necesita  
 >
-> 🔎**Fíjate en un detalle importante:** El dependiente **no sabe cómo se ha preparado la comida**. No conoce los procesos internos ni necesita conocerlos. Su única responsabilidad es pedir el menú y entregarlo.
+> 🔎 **Fíjate en un detalle importante:** El dependiente **no sabe cómo se ha preparado la comida**. No conoce los procesos internos ni necesita conocerlos. Su única responsabilidad es pedir el menú y entregarlo.
 >
 > Y si mañana la cocina cambia su forma de trabajar o mejora sus procesos, el dependiente seguirá funcionando exactamente igual, sin necesidad de modificar nada.
 >
@@ -168,6 +168,17 @@ export class UserService {
 }
 ```
 
+> [!tip]
+>
+> En TypeScript podemos definir que un valor no tenga un único tipo, sino varios posibles. TypeScript permite este tipo de combinaciones de forma nativa.
+>
+> Por ejemplo: `getUserById(id: number): User | undefined`.
+>
+> Esto significa que el método puede devolver un `User` o `undefined`.
+>
+> Esta idea no se limita a los retornos: también se puede usar para definir variables, parámetros o propiedades.
+>
+
 # Usar un servicio desde un componente
 
 Hasta ahora hemos creado nuestro servicio y hemos visto cómo centraliza la lógica y los datos de la aplicación.
@@ -202,7 +213,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ListadoComponent {
 
-  public listaCompleta: User[] = [];
+  public listaCompleta: User[];
 
   constructor(private userService: UserService) {
     this.listaCompleta = this.userService.getUsers();
@@ -287,15 +298,74 @@ En este ejemplo, lo haremos visualizando los datos en una tabla HTML:
   </a>
 </div>
 
-# Profundidad adicional (opcional)
+# Profundidad adicional
 
 En este punto ya hemos visto cómo funcionan los servicios y cómo se utilizan dentro de los componentes.
 
-A continuación vamos a ver algunos conceptos internos de Angular que ayudan a entender mejor qué está ocurriendo por detrás. No es imprescindible para usar servicios, pero sí muy recomendable para comprender su comportamiento.
+A continuación vamos a ver algunos conceptos internos de Angular que ayudan a entender mejor qué está ocurriendo por detrás. No es imprescindible para usar servicios, pero sí muy recomendable para comprender su comportamiento y aplicar buenas prácticas.
+
+## ⭐ Inicialización del componente con `ngOnInit` 
+
+Aunque es posible llamar a métodos de un servicio desde el constructor, **no es una práctica recomendada**.
+
+El constructor debería utilizarse únicamente para:
+- 💉 Inyectar dependencias (servicios)
+- 📝 Inicializar propiedades básicas
+
+Angular proporciona una serie de métodos que se ejecutan en distintos momentos del ciclo de vida del componente. Estos métodos se conocen como **hooks del ciclo de vida**.
+
+Uno de los más importantes es `ngOnInit`, que se ejecuta automáticamente una vez que el componente ha sido inicializado.
+
+> [!important]
+>
+> Es en `ngOnInit` donde debemos realizar tareas como:
+>
+> - Obtener datos desde servicios  
+> - Inicializar información del componente  
+> - Realizar llamadas HTTP (veremos más adelante) 
+
+**Ejemplo de una inicialización de un componente usando servicios de forma correcta:**
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
+
+@Component({
+  selector: 'app-listado-component',
+  imports: [],
+  templateUrl: './listado.component.html',
+  styleUrl: './listado.component.css',
+})
+export class ListadoComponent implements OnInit {
+
+  public listaCompleta: User[] = [];
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.listaCompleta = this.userService.getUsers();
+  }
+
+}
+```
+
+> [!note]
+>
+> **Es recomendable inicializar los atributos directamente en su declaración**, en lugar de hacerlo en el constructor.
+>
+> De esta forma, el constructor queda únicamente para la inyección de dependencias y evitamos posibles problemas al trabajar con variables no inicializadas.
+
+> [!caution]
+>
+> En los ejemplos anteriores hemos utilizado el constructor para simplificar la explicación inicial.
+>
+> Sin embargo, **a partir de este punto utilizaremos `ngOnInit` como lugar principal para inicializar datos**, ya que es la forma recomendada en Angular y evita problemas en escenarios más complejos, como llamadas HTTP o lógica asíncrona.
+
 
 ## Inyección de dependencias
 
-La inyección de dependencias es el mecanismo que utiliza Angular para proporcionarnos instancias de clases (como servicios) sin que tengamos que crearlas manualmente.
+La inyección de dependencias es el **mecanismo que utiliza Angular para proporcionarnos instancias de clases sin que tengamos que crearlas manualmente** (como los servicios).
 
 Cuando pedimos un servicio en el constructor, Angular se encarga de crearlo o proporcionarlo automáticamente.
 
@@ -306,6 +376,10 @@ Cuando pedimos un servicio en el constructor, Angular se encarga de crearlo o pr
 > En la mayoría de casos se utiliza `private`, ya que indica que el servicio solo se utilizará dentro de la lógica del componente y no será accesible desde la plantilla HTML.
 >
 > Si se utiliza `public`, el servicio también será accesible desde la vista, lo que puede llevar a mezclar lógica con presentación y no suele ser recomendable.
+
+> [!tip]
+>
+> ☕ Otro framework muy utilizado que también se basa en el patrón de inyección de dependencias es **Spring (Java)**.
 
 ## Decorador `@Injectable`
 
@@ -344,13 +418,14 @@ import { Injectable } from '@angular/core';
     providedIn: 'root',
 })
 export class UserService {
-	constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 }
 ```
 
 Un servicio puede depender de otros servicios, como ya veremos más adelante. Esto permite construir capas de lógica.
 
 En este caso, sin adelantar mucho, solo diremos que `HttpClient` en un servicio, que está siendo inyectado en el servicio `UserService`.
+
 
 # 🦸 Usando servicios en la aplicación Héroes
 
@@ -388,11 +463,7 @@ import { Hero } from '../models/heroe.model';
 })
 export class HeroService {
   // Atributos
-  private heroes: Hero[];
-
-  // Constructor
-  constructor() {
-    this.heroes = [
+  private heroes: Hero[] = [
       {
         id: 1,
         name: 'Spiderman',
@@ -401,10 +472,18 @@ export class HeroService {
         active: true,
         imageUrl: 'img/avatars/spiderman.svg',
         universe: 'Marvel'
+      },
+      {
+        id: 2,
+        name: 'Batman',
+        alterEgo: 'Bruce Wayne',
+        power: 50,
+        active: true,
+        imageUrl: 'img/avatars/batman.svg',
+        universe: 'DC'
       }
-      // En el repo encontrarás el array completo
-    ];
-  }
+      // Lista completa de héroes en el repo
+  ];
 
   // Métodos disponibles del servicio
 
@@ -448,7 +527,7 @@ En el componente `heroes-list`, inyectamos el servicio y utilizamos sus métodos
 
 ```typescript
 // heroes-list.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Hero } from '../../../models/heroe.model';
 import { HeroService } from '../../../services/hero.service';
 
@@ -458,12 +537,15 @@ import { HeroService } from '../../../services/hero.service';
   templateUrl: './heroes-list.html',
   styleUrl: './heroes-list.css',
 })
-export class HeroesList {
-  public heroes: Hero[];
+export class HeroesList implements OnInit {
+  public heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) {
-    this.heroes = heroService.getHeroes();
+  constructor(private heroService: HeroService) {}
+  
+  ngOnInit(): void {
+    this.heroes = this.heroService.getHeroes();
   }
+
 }
 ```
 
@@ -472,6 +554,10 @@ export class HeroesList {
 > **El array `heroes` es el mismo que ya utilizábamos anteriormente para mostrar la información en la vista.** Por esta razón en el HTML no tenemos que cambiar nada.
 >
 > La diferencia es que antes lo inicializábamos directamente en el componente, y ahora su contenido proviene del servicio.
+
+> [!warning]
+>
+> 🤯 Si no sabes de donde salió el `ngOnInit`, lee el apartado <kbd>Profundidad adicional - Inicialización del componente con `ngOnInit`</kbd>.
 
 
 
@@ -509,8 +595,7 @@ Si en el futuro estos datos vinieran de una API (spoiler: vendrán 😏) o una b
 Como ejercicios, te proponemos los siguientes retos para reforzar lo que hemos visto:
 
 - **¿Qué ocurriría si el servicio devolviera una lista vacía de héroes?**  
-  ¿Qué se mostraría en el listado? ¿Cómo podrías gestionar esta situación para mejorar la experiencia de usuario?
-  🔎Pista: `@empty`
+  ¿Qué se mostraría en el listado? ¿Cómo podrías gestionar esta situación para mejorar la experiencia de usuario?🔎Pista: `@empty`.
   
 - **Crea un nuevo listado en formato tabla.** Para ello deberás:
   
