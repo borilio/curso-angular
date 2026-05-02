@@ -50,10 +50,14 @@
                 "descLarga": "Carpeta compartida con todos los ejercicios realizados en directo durante el curso",
                 "href": "https://1drv.ms/f/c/26aa275b0c3118d5/IgApBK7nJRJiSL6Lcjf2SUINAdIJpgUXk4rexZLLYsySFfc?e=pCIBAq"
             },
-            
+            {
+                "icon": "pi pi-graduation-cap",
+                "desc": "Enlace a la plataforma Moodle de la formación",
+                "href": "https://proyectoweb.grupomainjobs.com/course/view.php?id=3"
+            },
             {
                 "icon": "pi pi-video",
-                "desc": "Enlace Zoom (12/May/2026) ID: 842 5234 3724",
+                "desc": "Enlace Zoom clase virtual (12/Mayo/2026)",
                 "href": "https://us06web.zoom.us/j/84252343724?pwd=t7bdomqZspc54ttgoecYKXUsdB0jM9.1",
                 "disabled": true
             }
