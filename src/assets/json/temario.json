@@ -174,7 +174,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,
-          "habilitado": false
+          "habilitado": true
         },
         {
           "id": "pipes",

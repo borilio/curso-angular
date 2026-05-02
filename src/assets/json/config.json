@@ -46,9 +46,9 @@
         "enlaces": [
             {
                 "icon": "pi pi-folder-open",
-                "desc": "Carpeta ejercicios resueltos",
+                "desc": "Carpeta ejercicios en clase",
                 "descLarga": "Carpeta compartida con todos los ejercicios realizados en directo durante el curso",
-                "href": "espacio para el enlace a la carpeta"
+                "href": "https://1drv.ms/f/c/26aa275b0c3118d5/IgApBK7nJRJiSL6Lcjf2SUINAdIJpgUXk4rexZLLYsySFfc?e=pCIBAq"
             },
             
             {
@@ -56,15 +56,7 @@
                 "desc": "Enlace Zoom (12/May/2026) ID: 842 5234 3724",
                 "href": "https://us06web.zoom.us/j/84252343724?pwd=t7bdomqZspc54ttgoecYKXUsdB0jM9.1",
                 "disabled": true
-            },
-            {
-                "icon": "pi pi-discord",
-                "desc": "Acceso al servidor de Discord",
-                "href": "https://discord.com/",
-                "disabled": true
             }
-            
-            
         ]
     },
     "caducidad": {
