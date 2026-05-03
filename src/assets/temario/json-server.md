@@ -4,7 +4,7 @@
 
 ## JSON Server
 
-Podremos instalar un servidor local de datos en formato JSON que acepta peticiones HTTP de tipo `GET, POST, PUT, PATCH, DELETE y OPTIONS`.
+Podremos instalar un servidor local de datos en formato JSON que acepta peticiones HTTP de tipo `GET`, `POST`, `PUT`, `PATCH`, `DELETE` y `OPTIONS`.
 
 La página oficial y todas las instrucciones actualizadas están en https://www.npmjs.com/package/json-server.
 
@@ -135,8 +135,8 @@ Y así tendremos un **backend totalmente funcional** montado en 30 segundos.
 > Permite realizar operaciones completas de una API REST:
 >
 > - 📥 GET (leer datos)
-> - 📤 POST (crear registros)
-> - ✏️ PUT / PATCH (actualizar datos)
+> - ➕ POST (crear registros)
+> - ✏️ PUT /  🩹 PATCH (actualizar datos completos / parciales)
 > - 🗑️ DELETE (eliminar registros)
 >
 > Además, los cambios **son persistentes**, es decir:
@@ -188,7 +188,7 @@ Solo hay que:
 
 1. Crear un repositorio público en GitHub (`<tu-usuario>/<tu-repo>`).
 2. Añadir un archivo `db.json` en la raíz.
-3. Acceder a la URL: `https://my-json-server.typicode.com/<tu-usuario>/<tu-repo>`
+3. Acceder a la URL: <kbd style="font-size:1.0rem">https://my-json-server.typicode.com/</kbd>`<tu-usuario>/<tu-repo>`
 
 **Ejemplo:** 
 
@@ -204,7 +204,7 @@ Desde ahí podemos acceder a endpoints como:
 > - Debe ser un repositorio público  
 > - El archivo debe llamarse `db.json`  
 > - No requiere instalación de nada ni servidor local  
-> - Es para pruebas por si necesitas un backend remot. Tiene una limitación de 30 elementos por tabla.
+> - Es para pruebas por si necesitas un backend remoto. Tiene una limitación de 30 elementos por tabla.
 
 > [!caution]
 >
