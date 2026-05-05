@@ -296,26 +296,26 @@
       "icon": "pi pi-box",
       "temas": [
         {
-          "id": "material",
+          "id": "poo",
           "orden": 1,
-          "titulo": "Angular Material",
-          "descripcion": "Angular Material",
-          "archivoMd": "angular-material.md",
+          "titulo": "⭐Programación Orientada a Objetos",
+          "descripcion": "Programación Orientada a Objetos: Conceptos y sintaxis en Typescript",
+          "archivoMd": "poo.md",
           "icon": "pi pi-angle-right",
           "severity": "primary",
           "outlined": false,
-          "habilitado": true
+          "habilitado": true 
         },
         {
-          "id": "primeng",
+          "id": "bootstrap",
           "orden": 2,
-          "titulo": "Prime NG",
-          "descripcion": "Prime NG",
-          "archivoMd": "prime-ng.md",
+          "titulo": "Añadir Bootstrap a un proyecto Angular",
+          "descripcion": "Añadir Bootstrap a un proyecto Angular",
+          "archivoMd": "bootstrap.md",
           "icon": "pi pi-angle-right",
           "severity": "primary",
           "outlined": false,
-          "habilitado": true
+          "habilitado": true 
         },
         {
           "id": "json-server",
@@ -333,7 +333,29 @@
           "orden": 4,
           "titulo": "Desplegar la aplicación",
           "descripcion": "Desplegar la aplicación: Local ➡️ Github ➡️ Netlify",
-          "archivoMd": "99-proximamente.md",
+          "archivoMd": "deploy.md",
+          "icon": "pi pi-angle-right",
+          "severity": "primary",
+          "outlined": false,
+          "habilitado": true
+        },
+        {
+          "id": "material",
+          "orden": 5,
+          "titulo": "Angular Material",
+          "descripcion": "Angular Material",
+          "archivoMd": "angular-material.md",
+          "icon": "pi pi-angle-right",
+          "severity": "primary",
+          "outlined": false,
+          "habilitado": true
+        },
+        {
+          "id": "primeng",
+          "orden": 6,
+          "titulo": "Prime NG",
+          "descripcion": "Prime NG",
+          "archivoMd": "prime-ng.md",
           "icon": "pi pi-angle-right",
           "severity": "primary",
           "outlined": false,
@@ -341,7 +363,7 @@
         },
         {
           "id": "param-url",
-          "orden": 5,
+          "orden": 7,
           "titulo": "Capturar parámetros desde la URL",
           "descripcion": "Capturar parámetros desde la URL",
           "archivoMd": "parametros-desde-url.md",
@@ -352,7 +374,7 @@
         },
         {
           "id": "sweetalert",
-          "orden": 6,
+          "orden": 8,
           "titulo": "Notificaciones con Sweet Alert",
           "descripcion": "Notificaciones con Sweet Alert",
           "archivoMd": "sweetalert.md",
@@ -360,30 +382,7 @@
           "severity": "primary",
           "outlined": false,
           "habilitado": true
-        },
-        {
-          "id": "poo",
-          "orden": 7,
-          "titulo": "⭐Programación Orientada a Objetos",
-          "descripcion": "Programación Orientada a Objetos: Conceptos y sintaxis en Typescript",
-          "archivoMd": "poo.md",
-          "icon": "pi pi-angle-right",
-          "severity": "primary",
-          "outlined": false,
-          "habilitado": true 
-        },
-        {
-          "id": "bootstrap",
-          "orden": 8,
-          "titulo": "Añadir Bootstrap a un proyecto Angular",
-          "descripcion": "Añadir Bootstrap a un proyecto Angular",
-          "archivoMd": "bootstrap.md",
-          "icon": "pi pi-angle-right",
-          "severity": "primary",
-          "outlined": false,
-          "habilitado": true 
         }
-
       ]
     }
   ]
