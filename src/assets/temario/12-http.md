@@ -669,7 +669,9 @@ Puedes ver todo el código que hemos visto, junto en un proyecto de Stackblitz, 
 
 # Peticiones HTTP en Angular (RESTO)
 
-{{ Pendiente: Aquí explicaremos como hacer peticiones DELETE, POST, PUT, PATCH}}
+🚧En construcción...🚧
+
+{{ Pendiente: Aquí explicaremos como hacer peticiones DELETE, POST, PUT, PATCH conceptualmente desde un servic}}
 
 # Profundizando un poco más (opcional)
 
@@ -791,9 +793,26 @@ El objetivo es reforzar lo que hemos visto para:
 **Extras:**
 
 - Algunos héroes no tienen imagen. Podrías hacer que los que no reciban una imagen, muestren una por defecto (`img/avatars/defaultheroe.svg`).
-- El backend tardará en responder nuestras peticiones. ¿Podríamos mostrar alguna indicativo de que estamos esperando la respuesta? 🔎 Pista: Empieza por un texto simple, y después prueba con spinners de Bootstrap.
-- {{más...}}
+- El backend tardará en responder nuestras peticiones. ¿Podríamos mostrar alguna indicativo de que estamos esperando la respuesta? 
+  🔎 Pista: Empieza por un texto simple que diga “Cargando...” o similar, y después prueba con spinners de Bootstrap.
+- 🚧En construcción...🚧
 
-{{ Desarrollar un poco más, y poner en enlace a github y stackblitz }}
+<div style="display:flex; justify-content:center; align-items:center; gap:12px; font-family:sans-serif; margin:16px 0;">
+    <span style="font-weight:bold; font-family:monospace; background-color:#f1f3f5; color: #000000; padding:6px 10px; border-radius:6px; font-size:0.9rem;">
+        <i class="pi pi-tag"></i>
+        v5-http
+    </span>
+    <div style="display:flex; border: 2px solid white; border-radius: 999px;">
+        <a href="https://stackblitz.com/github/borilio/heroes/tree/v5-http" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#0d6efd; border-top-left-radius:999px; border-bottom-left-radius:999px;">
+            <i class="pi pi-bolt"></i>
+            Ver en StackBlitz
+        </a>
+        <a href="https://github.com/borilio/heroes/archive/refs/tags/v5-http.zip" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#212529; border-top-right-radius:999px; border-bottom-right-radius:999px;">
+            <i class="pi pi-github"></i>     
+            Descargar de GitHub
+        </a>
+    </div>
+</div>
 
-{{ Queda peticiones http en angular resto }}
