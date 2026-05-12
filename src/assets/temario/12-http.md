@@ -606,7 +606,7 @@ Por eso nuestro HTML puede quedarse exactamente igual.
 
 ## Stackblitz
 
-Puedes ver todo el código que hemos visto, junto en un proyecto de Stackblitz, donde hace peticiones HTTP a un backend (con `my-json-server`)
+Puedes ver todo el código que hemos visto en un proyecto de Stackblitz, donde hace peticiones HTTP de tipo `GET` a un backend (con `my-json-server`)
 
 <div style="
   display: flex;
@@ -642,9 +642,8 @@ Puedes ver todo el código que hemos visto, junto en un proyecto de Stackblitz, 
 
 2. **Tipado de los datos (opcional según el caso)**
    - En muchos casos ya conoceremos la estructura de los datos (como con nuestro `json-server`)
-   - Si trabajas con una API externa o desconocida, es muy útil generar una interfaz TypeScript a partir del JSON
-   - Puedes usar herramientas como [quicktype.io](https://quicktype.io/) para crearlas rápidamente
-
+   - Si trabajas con una API externa o desconocida, es muy útil generar una interfaz TypeScript a partir del JSON (puedes usar herramientas como [quicktype.io](https://quicktype.io/) para crearlas rápidamente)
+   
 3. **El servicio se encarga de las peticiones**
    - Usa `HttpClient` para comunicarse con la API
    - Retorna siempre un `Observable<T>` con el tipo de datos esperado
@@ -666,12 +665,6 @@ Puedes ver todo el código que hemos visto, junto en un proyecto de Stackblitz, 
 >
 > La clave del flujo es entender que **el servicio no entrega datos directamente**, sino un `Observable`.  
 > El componente es el que decide cuándo “escuchar” esos datos mediante `subscribe()` y actualizar la vista.
-
-# Peticiones HTTP en Angular (RESTO)
-
-🚧En construcción...🚧
-
-{{ Pendiente: Aquí explicaremos como hacer peticiones DELETE, POST, PUT, PATCH conceptualmente desde un servic}}
 
 # Profundizando un poco más (opcional)
 
@@ -795,9 +788,8 @@ El objetivo es reforzar lo que hemos visto para:
 - Algunos héroes no tienen imagen. Podrías hacer que los que no reciban una imagen, muestren una por defecto (`img/avatars/defaultheroe.svg`).
 - El backend tardará en responder nuestras peticiones. ¿Podríamos mostrar alguna indicativo de que estamos esperando la respuesta? 
   🔎 Pista: Empieza por un texto simple que diga “Cargando...” o similar, y después prueba con spinners de Bootstrap.
-- 🚧En construcción...🚧
 
-<div style="display:flex; justify-content:center; align-items:center; gap:12px; font-family:sans-serif; margin:16px 0;">
+<div style="display:flex; justify-content:center; align-items:center; gap:12px; font-family:sans-serif; margin:16px 0; padding: 3rem 0;">
     <span style="font-weight:bold; font-family:monospace; background-color:#f1f3f5; color: #000000; padding:6px 10px; border-radius:6px; font-size:0.9rem;">
         <i class="pi pi-tag"></i>
         v5-http
@@ -816,3 +808,779 @@ El objetivo es reforzar lo que hemos visto para:
     </div>
 </div>
 
+
+
+
+
+---
+
+# Peticiones HTTP en Angular (RESTO)
+
+Hasta ahora hemos trabajado con peticiones `GET`, que sirven para consultar información. El siguiente paso natural es aprender a hacer el resto de peticiones, ya que se usa el mismo flujo para todas las peticiones, y lo haremos en directamente en nuestro proyecto Héroes.
+
+Vamos a adaptar la interfaz para poder albergar las nuevas funcionalidades:
+
+- Al inicio del listado, añadimos un botón de <kbd>➕Nuevo héroe</kbd>, para probar la petición `POST`.
+- Añadimos una botonera en la tarjeta del héroe, con los siguientes botones:
+  - <kbd>✏️Editar</kbd>: Modificaremos todos los datos del Héroe por unos valore fijos, así probaremos `PUT`.
+  - <kbd>🔁Estado</kbd>: Conmutaremos el estado entre activo e inactivo, así probaremos `PATCH`.
+  - <kbd>🗑️Eliminar</kbd>: Eliminaremos el héroe, así probaremos `DELETE`.
+
+
+
+![Captura de pantalla de como quedaría el listado con las nuevas funcionalidades](img/12-http/image-20260506131827308.png){.rounded-4}
+
+```html
+<!-- heroes-list.html -->
+
+<!-- Contenido nuevo: Botón nuevo héroe -->
+<div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Nuevo héroe
+    </button>
+</div>
+
+@for (hero of heroes; track hero.id) {
+
+<div class="card mb-3 shadow-sm" style="max-width: 500px;">
+
+    <!-- Mismo contenido anterior... -->
+    <div class="card-header ..."></div>
+    <div class="card-body ..."></div>
+
+    <!-- Contenido nuevo: Botonera en la tarjeta -->
+    <div class="card-footer bg-light">
+        <div class="btn-group w-100" role="group">
+
+            <button class="btn btn-outline-primary">
+                <i class="bi bi-pencil"></i> Editar
+            </button>
+
+            <button class="btn btn-outline-warning">
+                <i class="bi bi-arrow-repeat"></i> Estado
+            </button>
+
+            <button class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i> Eliminar
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+}
+```
+
+
+
+## 🗑️DELETE
+
+La idea general es sencilla: al pulsar el botón, enviaremos una petición `DELETE` al servidor indicando el identificador del héroe que queremos eliminar.
+
+La interfaz ya dispone del botón **Eliminar** en cada tarjeta, así que solo necesitamos programar la lógica necesaria para que funcione.
+
+1️⃣ Comenzaremos creando el método en el servicio, ya que será el encargado de comunicarse con la API.
+
+```typescript
+// hero.service.ts
+
+public deleteHero(id: number)  {
+    return this.http.delete(`${this.apiURL}/heroes/${id}`);
+}
+```
+
+> [!note]
+>
+> Este método enviará una petición similar a la siguiente:
+>
+> ```http
+> DELETE /heroes/3
+> ```
+>
+> Es decir, eliminar el héroe cuyo identificador sea `3`. 
+>
+> Fíjate que:
+>
+> - Es lo mismo que hacemos para `GET` pero usando el método `http.delete()`en lugar del método `http.get()`. 
+> - Y que ahora no retorna un `Observable`.
+
+2️⃣ Una vez preparado el servicio, ya podemos consumirlo desde el componente. Hacemos otro método en el componente:
+
+```typescript
+// heroes-list.ts
+// ...
+
+deleteHero(id: number): void {
+    this.heroService.deleteHero(id).subscribe(() => {
+        console.log('✅ Héroe eliminado correctamente');
+        this.loadHeroes();
+    });
+}
+```
+
+> [!tip]
+>
+> Observa que la petición no se ejecuta hasta realizar `subscribe()`, igual que ocurría con las peticiones `GET`.
+
+3️⃣ Ahora solo queda enlazar el botón de la plantilla HTML con el método del componente.
+
+```html
+<!-- heroes-list.html -->
+<button 
+	class="btn btn-outline-danger"
+	(click)="this.deleteHero(hero.id)"
+>
+	<i class="bi bi-trash"></i> Eliminar
+</button>
+```
+
+Al pulsar el botón sobre un héroe (por ejemplo cuya id es 50), podemos ver como la petición se envía al backend, y la respuesta de éste (en la consola del `json-server`):
+
+```http
+DELETE /heroes/50 200 1547.917 ms - 2
+```
+
+> [!caution]
+>
+> **Pero habrás visto que tenemos un problema.** 
+>
+> Al borrar, borramos del servidor, pero nuestra lista sigue mostrando al héroe eliminado (el cual si intentamos borrar de nuevo dará un error por consola porque el recurso ya no existe). **No se actualiza**. Debemos forzar una actualización para que recargue la lista de nuevo y refleje los cambios.
+
+4️⃣ Hasta ahora, cargamos la lista de héroes en el `ngOnInit` **una única vez**. Vamos a crear un método nuevo llamado `loadHeroes()`, que sea el encargado de hacer la petición `GET` y actualizar el array de héroes, y así podemos reutilizarlo cada vez que necesitemos:
+
+```typescript
+// heroes-list.ts
+// ...
+export class HeroesList implements OnInit {
+  public heroes: Hero[] = [];
+
+  constructor(private heroService: HeroService) {}
+
+  ngOnInit(): void {
+    this.loadHeroes();
+  }
+
+  loadHeroes(): void {
+    this.heroService.getHeroes().subscribe((datos: Hero[]) => {
+      this.heroes = datos;
+    });
+  }
+
+  deleteHero(id: number): void {
+    this.heroService.deleteHero(id).subscribe(() => {
+      console.log('✅ Héroe eliminado correctamente');
+      this.loadHeroes();
+    });
+  }
+}
+```
+
+
+
+**Flujo:**
+
+1. El usuario pulsa el botón de **eliminar** en la tarjeta de un héroe concreto.
+2. Se ejecuta el método `deleteHero(id)` del componente, recibiendo como parámetro el `id` del héroe seleccionado.
+3. El componente delega la operación en el servicio, llamando a su método `deleteHero(id)`, que es el encargado de realizar la petición HTTP al backend.
+4. El servicio envía una petición `DELETE` a la API indicando el identificador del recurso a eliminar.
+5. El componente se suscribe a la respuesta (`subscribe`) para esperar la confirmación de la operación.
+6. Cuando la eliminación se completa correctamente, se vuelve a cargar la lista de héroes mediante `loadHeroes()` para actualizar la vista.
+
+
+
+## ➕POST
+
+El siguiente paso natural es aprender a **crear nuevos recursos** mediante el método HTTP `POST`.
+
+La interfaz ya dispone del botón <kbd>➕Nuevo héroe</kbd> sobre el listado, así que solo necesitamos programar la lógica necesaria para que funcione.
+
+1️⃣ Comenzaremos creando el método en el servicio, ya que será el encargado de comunicarse con la API.
+
+```typescript
+// hero.service.ts
+
+public createHero(hero: Hero) {
+    return this.http.post(`${this.apiURL}/heroes`, hero);
+}
+```
+
+> [!note]
+>
+> Este método enviará una petición similar a la siguiente:
+>
+> ```http
+> POST /heroes
+> ```
+>
+> Acompañada de un cuerpo (`body`) con los datos del nuevo héroe.
+>
+> Fíjate que:
+>
+> - Usamos el método `http.post()`.
+> - Además de la URL, debemos enviar el objeto con la información que queremos crear.
+
+2️⃣ Una vez preparado el servicio, ya podemos consumirlo desde el componente. Hacemos otro método en el componente:
+
+```typescript
+// heroes-list.ts
+// ...
+
+createHero(): void {
+    // 1. Creamos el recurso que vamos a enviar al backend para guardar...
+    const milis = Date.now(); // Es la fecha actual en milis, para usarla como identificador
+    const powerAleatorio = Math.floor(Math.random() * 100);
+    const nuevoHeroe: Hero = {
+      id: 0,
+      name: `Héroe nº ${milis}`,
+      alterEgo: `Nombre de ${milis}`,
+      active: true,
+      power: powerAleatorio,
+      universe: 'Multiverso',
+      imageUrl: ''
+    };
+
+    // 2. Lo mandamos al backend por post
+    this.heroService.createHero(nuevoHeroe).subscribe(() => {
+      console.log('✅ Héroe creado correctamente', nuevoHeroe);
+      this.loadHeroes();
+    });
+}
+```
+
+> [!tip]
+>
+> Obtenemos el tiempo en milisegundos, para crear un “identificador” único para cada nuevo héroe que guardamos al pulsar el botón.
+
+> [!important]
+>
+> En este ejemplo enviamos `id: 0` para simplificar el modelo y centrarnos en cómo funciona una petición `POST`.
+>
+> En aplicaciones reales, lo habitual es **no enviar la `id`**, dejando que el backend genere automáticamente el identificador del nuevo recurso.
+>
+> Si quisiéramos aplicar ese enfoque, tendríamos que realizar algunos ajustes adicionales:
+>
+> - Modificar el modelo y declarar la propiedad como opcional (cambiarlo en `hero.model.ts`):
+>
+>   ```typescript
+>   id?: number;
+>   ```
+>
+> - Al trabajar con una propiedad opcional, Angular puede detectar que `hero.id` podría no existir en algunos casos.
+>
+> - En determinadas situaciones sería necesario indicarlo explícitamente usando (solo hay que cambiarlo una vez en `heroes-list.html`):
+>
+>   ```html
+>   hero.id!
+>   ```
+>
+> El operador `!` le dice a TypeScript que confiamos en que ese valor existirá en ese momento.
+>
+> Para no desviar la atención del objetivo principal de este apartado, mantendremos `id: 0` y dejaremos el modelo actual sin cambios, ya que json-server ignora el atributo `id: 0` y asigna una nueva id incremental.
+
+3️⃣ Ahora solo queda enlazar el botón de la plantilla HTML con el método del componente.
+
+```html
+<!-- heroes-list.html -->
+
+<button	class="btn btn-success"	(click)="createHero()">
+	<i class="bi bi-plus-circle"></i> Nuevo héroe
+</button>
+```
+
+Al pulsar el botón, podemos ver cómo la petición se envía al backend y el nuevo recurso queda almacenado.
+
+```http
+POST /heroes 201 1534.700 ms - 172
+```
+
+```http
+GET /heroes 200 1537.518 ms - -
+```
+
+> [!tip]
+>
+> Si no actualizamos la lista después de insertar el nuevo héroe, el registro existirá en el servidor, pero no aparecerá todavía en pantalla.
+>
+> Por eso reutilizamos `loadHeroes()` al finalizar correctamente la operación y veremos que tras la petición `POST`, se hace una nueva petición `GET`.
+
+------
+
+**Flujo:**
+
+1. El usuario pulsa el botón **Nuevo héroe**.
+2. Se ejecuta el método `createHero()` del componente.
+3. El componente genera un objeto (con algunos valores aleatorios) con los datos del nuevo héroe.
+4. El componente delega la operación en el servicio llamando a `createHero(hero)`.
+5. El servicio envía una petición `POST` a la API con los datos del nuevo recurso.
+6. El componente se suscribe a la respuesta (`subscribe`) para esperar la confirmación.
+7. Cuando la creación se completa correctamente, se vuelve a cargar la lista mediante `loadHeroes()` para actualizar la vista.
+
+> [!caution]
+>
+> En este ejemplo creamos el objeto directamente en el código con valores predefinidos para simplificar el proceso y centrarnos en cómo funciona la petición `POST`. Haremos lo mismo en las siguientes peticiones `PATCH` y `PUT`.
+>
+> En una aplicación real, lo habitual sería mostrar un formulario al usuario, recoger los datos introducidos, validarlos y construir el objeto a partir de esos valores antes de enviarlo al backend.
+>
+> Más adelante, en próximos temas, trabajaremos con formularios y veremos cómo realizar este proceso de forma correcta y dinámica.
+
+
+
+## 🩹 PATCH
+
+El siguiente paso natural es aprender a **modificar parcialmente recursos existentes** mediante el método HTTP `PATCH`.
+
+En la interfaz ya le pusimos el botón <kbd>🔄 Estado</kbd> en cada tarjeta, así que solo necesitamos programar la lógica necesaria para que funcione.
+
+1️⃣ Comenzaremos como siempre, creando el método en el servicio, ya que será el encargado de comunicarse con la API.
+
+```typescript
+// hero.service.ts
+
+public patchHero(id: number, cambios: Partial<Hero>) {
+    return this.http.patch(`${this.apiURL}/heroes/${id}`, cambios);
+}
+```
+
+> [!important]
+>
+> `Partial<Hero>` es una utilidad de TypeScript que convierte todas las propiedades del modelo `Hero` en opcionales de forma temporal.
+>
+> Gracias a ello, podemos enviar solo los campos que queremos modificar, sin necesidad de construir el objeto completo.
+>
+> Por ejemplo:
+>
+> ```typescript
+> { active: false }
+> ```
+>
+> o también:
+>
+> ```typescript
+> { name: 'Nuevo nombre', power: 90 }
+> ```
+>
+> Esto encaja perfectamente con el funcionamiento habitual de una petición `PATCH`.
+
+> [!note]
+>
+> Este método enviará una petición similar a la siguiente:
+>
+> ```http
+> PATCH /heroes/7
+> ```
+>
+> Acompañada de un cuerpo (`body`) con solo los campos que deseamos modificar.
+>
+> ```json
+> {
+>   "active": false
+> }
+> ```
+>
+> Fíjate que:
+>
+> - Usamos el método `http.patch()`.
+> - No enviamos el héroe completo, solo la parte que queremos actualizar.
+
+2️⃣ Una vez preparado el servicio, ya podemos consumirlo desde el componente. Hacemos otro método en el componente:
+
+```typescript
+// heroes-list.ts
+// ...
+
+toggleActive(hero: Hero): void {
+    
+    // 1. Creamos el trozo de objeto solo con los atributos que vamos a parchear
+    const nuevosValores: Partial<Hero> = {
+      active: !hero.active
+    };
+
+    //  2. Enviamos por PATCH el trozo del objeto que queremos modificar parcialmente
+    this.heroService.patchHero(hero.id, nuevosValores).subscribe(()=>{
+      console.log("✅ Atributos modificados", nuevosValores);
+      this.loadHeroes();
+    });
+
+}
+```
+
+> [!tip]
+>
+> 🤓Utilizamos el operador `!` para invertir el valor actual:
+>
+> - `true` pasa a `false`
+> - `false` pasa a `true`
+
+3️⃣ Ahora solo queda enlazar el botón de la plantilla HTML con el método del componente.
+
+```html
+<!-- heroes-list.html -->
+
+<button class="btn btn-outline-warning" (click)="toggleActive(hero)">
+  <i class="bi bi-arrow-repeat"></i> Estado
+</button>
+```
+
+Al pulsar el botón, podemos ver cómo la petición se envía al backend y el héroe cambia su estado. 
+
+```http
+PATCH /heroes/7 200 1532.611 ms - 172
+```
+
+```http
+GET /heroes 200 337.565 ms - -
+```
+
+> [!tip]
+>
+> Tras modificar el recurso correctamente, llamamos a `loadHeroes()` para volver a cargar la lista y reflejar los cambios en pantalla.
+
+------
+
+**Flujo:**
+
+1. El usuario pulsa el botón <kbd>🔄 Estado</kbd> en la tarjeta de un héroe, para conmutar su estado.
+2. Se ejecuta el método `toggleActive(hero)` del componente.
+3. El componente calcula el valor contrario al estado actual (`true` o `false`).
+4. El componente delega la operación en el servicio llamando a `patchHero(id, cambios)`.
+5. El servicio envía una petición `PATCH` a la API con solo el campo modificado.
+6. El componente se suscribe a la respuesta (`subscribe`) para esperar la confirmación.
+7. Cuando la actualización se completa correctamente, se vuelve a cargar la lista mediante `loadHeroes()` para actualizar la vista.
+
+> [!warning]
+>
+> En este ejemplo modificamos únicamente el campo `active`, pero con `PATCH` podríamos actualizar cualquier combinación de propiedades sin necesidad de enviar el objeto completo.
+
+
+
+## ✏️ PUT
+
+El siguiente paso natural es aprender a **actualizar recursos completos existentes** mediante el método HTTP `PUT`.
+
+En la interfaz ya disponemos del botón <kbd>✏️ Editar</kbd> en cada tarjeta, así que solo necesitamos programar la lógica necesaria para que funcione.
+
+1️⃣ Comenzaremos creando el método en el servicio, ya que será el encargado de comunicarse con la API.
+
+```typescript
+// hero.service.ts
+
+public updateHero(hero: Hero) {
+    return this.http.put(`${this.apiURL}/heroes/${hero.id}`, hero);
+}
+```
+
+> [!note]
+>
+> Este método enviará una petición similar a la siguiente:
+>
+> ```http
+> PUT /heroes/7
+> ```
+>
+> Acompañada de un cuerpo (`body`) con el objeto completo del héroe actualizado.
+>
+> Fíjate que:
+>
+> - Usamos el método `http.put()`.
+> - No pasamos la `id` por separado en la firma, ya que va en el objeto `hero` y podemos usarla con `hero.id`. Pero vamos, que si se envía, funcionaría igualmente 😉.
+> - Se envía el objeto completo del recurso, no solo una parte.
+
+
+
+2️⃣ Una vez preparado el servicio, ya podemos consumirlo desde el componente. Creamos el método:
+
+```typescript
+// heroes-list.ts
+// ...
+
+updateHero(hero: Hero): void {
+  
+  // 1. Mismo objeto, pero le cambiamos algunas propiedades usando el operador spread (...)
+  const heroeActualizado: Hero = {
+    ...hero,
+    name: hero.name + " ⚡",
+    power: hero.power + 30, 
+    universe: hero.universe + " Ultimate"
+  };
+
+  // 2. Hacemos la petición PUT para sobrescribir el MISMO recurso con estos nuevos valores
+  this.heroService.updateHero(heroeActualizado).subscribe(()=>{
+    console.log("✏️ Héroe actualizado correctamente: ", hero);
+    this.loadHeroes();
+  });
+
+}
+```
+
+> [!important]
+>
+> En este caso utilizamos el operador `...` (spread operator), que nos permite copiar todas las propiedades del objeto original en uno nuevo.
+>
+> A partir de esa copia, modificamos únicamente los campos que queremos actualizar, evitando tener que reconstruir todo el objeto manualmente.
+>
+> 💡Con `...hero` es como si dijéramos, todas las propiedades que ya tiene el objeto `hero`, más las que te pongo a continuación.
+
+
+
+3️⃣ Ahora solo queda enlazar el botón de la plantilla HTML con el método del componente.
+
+```html
+<!-- heroes-list.html -->
+
+<button class="btn btn-outline-primary" (click)="updateHero(hero)">
+  <i class="bi bi-pencil"></i> Editar
+</button>
+```
+
+Al pulsar el botón, podemos ver cómo la petición se envía al backend y el héroe se actualiza completamente.
+
+```http
+PUT /heroes/7 200 1532.611 ms - 172
+```
+
+```http
+GET /heroes 200 337.565 ms - -
+```
+
+
+
+> [!tip]
+>
+> Tras actualizar el recurso correctamente, reutilizamos `loadHeroes()` para volver a cargar la lista y reflejar los cambios en pantalla.
+
+------
+
+**Flujo:**
+
+1. El usuario pulsa el botón <kbd>✏️ Editar</kbd> en la tarjeta de un héroe.
+2. Se ejecuta el método `updateHero(hero)` del componente.
+3. El componente crea un nuevo objeto basado en el héroe original, modificando algunos campos.
+4. El componente delega la operación en el servicio llamando a `updateHero(hero)`.
+5. El servicio envía una petición `PUT` a la API para sobrescribir el recurso entero, con el objeto completo actualizado.
+6. El componente se suscribe a la respuesta (`subscribe`) para esperar la confirmación.
+7. Cuando la actualización se completa correctamente, se vuelve a cargar la lista mediante `loadHeroes()` para actualizar la vista.
+
+> [!caution]
+>
+> A diferencia de `PATCH`, el método `PUT` sustituye completamente el recurso, por lo que se debe enviar el objeto entero actualizado.
+
+
+
+## 📄 Resumen
+
+![Infografía resumen con el flujo para las peticiones HTTP](img/12-http/resumen-flujo-1778530808982-1.png){.rounded}
+
+# Stackblitz completo (todas las peticiones HTTP)
+
+Aquí podrás ver funcionando la versión completa con todas las peticiones HTTP funcionando.
+
+- 📥 `GET` recibe la lista completa de héroes.
+- 🗑️ `DELETE` elimina un héroe de la lista.
+- ➕ `POST` crea un nuevo héroe en la lista.
+- 🩹 `PATCH` parchea un atributo de un héroe de la lista (conmuta la propiedad `active`)
+- ✏️ `PUT` modifica varios atributos de un héroe y lo sustituye por completo en la lista.
+
+> [!caution]
+>
+> **Recuerda que:** ️
+>
+> - En Stackblitz tendrás que cambiar la URL del servicio (en `hero.service.ts` encontrarás las instrucciones), ya que usa por defecto `localhost`.
+> - Usando la URL remota de `my-json-server` **las peticiones HTTP no son persistentes**. El servidor las aceptará, pero **no verás ningún efecto en las peticiones** `PUT`, `POST`, `PATCH` y `DELETE`.
+
+<div style="display:flex; justify-content:center; align-items:center; gap:12px; font-family:sans-serif; margin:16px 0; padding: 3rem 0;">
+    <span style="font-weight:bold; font-family:monospace; background-color:#f1f3f5; color: #000000; padding:6px 10px; border-radius:6px; font-size:0.9rem;">
+        <i class="pi pi-tag"></i>
+        v5-http-full
+    </span>
+    <div style="display:flex; border: 2px solid white; border-radius: 999px;">
+        <a href="https://stackblitz.com/github/borilio/heroes/tree/v5-http-full" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#0d6efd; border-top-left-radius:999px; border-bottom-left-radius:999px;">
+            <i class="pi pi-bolt"></i>
+            Ver en StackBlitz
+        </a>
+        <a href="https://github.com/borilio/heroes/archive/refs/tags/v5-http-full.zip" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#212529; border-top-right-radius:999px; border-bottom-right-radius:999px;">
+            <i class="pi pi-github"></i>     
+            Descargar de GitHub
+        </a>
+    </div>
+</div>
+
+
+# Mostrar indicadores de carga
+
+![Imagen que muestra al personaje usando una página web, en la que se ve un indicador de carga y no sabe si la web está cargando o está colgada. También está pensando si le da tiempo a ir al baño mientras se procesa, que total, para lo que le pagan mejor que le paguen por cagar. Sobre todo cuando ve que su compañero está todo el día bajando a fumar y entre el vicio, el café y el tiempo que se tira hablando de fútbol y cuñadismos al final no trabaja nada, y encima lo poco que hace lo hace mal, pero eso si, al final de mes cobra lo mismo o más por ser un completo inútil. Moraleja, no vas a heredar la empresa, así que si tienes que ir al baño a descomer en horario laboral hazlo, cuando te tengan que echar no van a pensar que optimizabas tu tiempo y que preferías hacerlo en tu casa, ERES UN NÚMERO MAS](img/12-http/tiempos-carga.png){.rounded}
+
+Hasta ahora nuestras peticiones funcionan correctamente, pero cuando el servidor tarda en responder, el usuario no sabe si la aplicación está trabajando o si se ha quedado bloqueada.
+
+Una mejora muy habitual es mostrar **indicadores de carga** mientras esperamos la respuesta del backend.
+
+Esto mejora la experiencia de uso y transmite que la aplicación sigue funcionando con normalidad.
+
+Parla ello, usaremos variables booleanas en el componente para indicar cuándo una operación está en curso.
+
+```text
+false = no está cargando
+true  = petición en proceso
+```
+
+Cuando comienza la petición, activamos el indicador, cuando finaliza correctamente, lo desactivamos.
+
+Veamos el código paso por paso:
+
+---
+
+**1️⃣ Variables de control en el componente**
+
+```typescript
+export class HeroesList implements OnInit {
+  public heroes: Hero[] = [];
+
+  // Para controlar los tiempos de carga en las peticiones
+  public cargandoHeroes: boolean = false;
+  public cargandoId: number = 0;
+  public cargandoEliminar: boolean = false;
+  public cargandoNuevo: boolean = false;
+  public cargandoToggle: boolean = false;
+  public cargandoEditar: boolean = false;
+    
+  // ...
+}
+```
+
+> [!note]
+>
+> `cargandoId` nos permite guardar el identificador del héroe afectado para mostrar el indicador solo en esa tarjeta, y no en todas las del listado.
+
+------
+
+**2️⃣ Activar y desactivar el estado de carga**
+
+> [!warning]
+>
+> Lo mostramos con `DELETE`, pero sería igual para todas las peticiones HTTP.
+
+**Ejemplo con la operación `DELETE`:**
+
+```typescript
+// heroes-list.ts
+
+deleteHero(id: number): void {
+
+  this.cargandoEliminar = true;
+  this.cargandoId = id;
+
+  this.heroService.deleteHero(id).subscribe(() => {
+    console.log('✅ Héroe eliminado correctamente');
+
+    this.cargandoEliminar = false;
+    this.cargandoId = 0;
+
+    this.loadHeroes();
+  });
+}
+```
+
+🔍 **Qué ocurre aquí**
+
+1. Antes de lanzar la petición, activamos el indicador.
+2. Guardamos la ID del héroe afectado.
+3. Mientras esperamos la respuesta, mostraremos el spinner.
+4. Cuando termina, restauramos los valores normales.
+
+------
+
+**3️⃣ Mostrar spinner en la vista**
+
+```html
+<button class="btn btn-outline-danger" (click)="deleteHero(hero.id!)">
+
+  @if (cargandoEliminar && cargandoId === hero.id) {
+    <i class="spinner-border spinner-border-sm"></i>
+  } @else {
+    <i class="bi bi-trash"></i>
+  }
+  <span> Eliminar</span>
+
+</button>
+```
+
+> ❓ Si la petición `delete` está en proceso (`cargandoEliminar`)
+>    y además coincide la id del héroe que estamos borrando...
+>
+>    └─── Mostramos el icono de carga ⌛
+>
+> ❓ En caso contrario...
+>
+>    └─── Mostramos el icono normal  🗑️
+
+
+
+------
+
+**🎯 Resultado visual**
+
+| Estado                 | Icono                                                        |
+| ---------------------- | ------------------------------------------------------------ |
+| Normal                 | ![Captura del botón Eliminar en su estado normal](img/12-http/image-20260512110156914.png){.img-inline} |
+| Procesando la petición | ![Captura del botón Eliminar en su estado cargando](img/12-http/progreso-boton.gif){.img-inline} |
+
+
+
+------
+
+**🧩 El mismo patrón para todas las operaciones**
+
+Podemos aplicar exactamente la misma idea a:
+
+- `POST` → crear héroe → botón <kbd>➕ Nuevo</kbd>
+
+- `PUT` → editar héroe → botón <kbd>✏️ Editar</kbd>
+
+- `PATCH` → cambiar estado → botón <kbd>🔄 Estado</kbd>
+
+- `GET` → cargar listado inicial → Barra de progreso indeterminada al inicio del listado
+
+  ![progress-indeterminate](img/12-http/progress-indeterminate.gif){.img-inline .rounded-4}
+
+> [!important]
+>
+> **Solo cambia la variable booleana que utilicemos y mostramos el elemento UI de carga si está cargando, o no lo mostramos en caso contrario.**
+
+> [!tip]
+>
+> 🎖️Mostrar indicadores de carga no cambia el funcionamiento de la aplicación, pero mejora mucho la sensación de rapidez y calidad para el usuario.
+
+> [!note]
+>
+> 🤓En proyectos más avanzados existen formas más automáticas de controlar estas cargas (interceptores, estados globales, signals, etc.), pero este enfoque manual es perfecto para aprender cómo funciona el proceso.
+
+
+
+<div style="display:flex; justify-content:center; align-items:center; gap:12px; font-family:sans-serif; margin:16px 0; padding: 3rem 0;">
+    <span style="font-weight:bold; font-family:monospace; background-color:#f1f3f5; color: #000000; padding:6px 10px; border-radius:6px; font-size:0.9rem;">
+        <i class="pi pi-tag"></i>
+        v5-http-full-spinners
+    </span>
+    <div style="display:flex; border: 2px solid white; border-radius: 999px;">
+        <a href="https://stackblitz.com/github/borilio/heroes/tree/v5-http-full-spinners" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#0d6efd; border-top-left-radius:999px; border-bottom-left-radius:999px;">
+            <i class="pi pi-bolt"></i>
+            Ver en StackBlitz
+        </a>
+        <a href="https://github.com/borilio/heroes/archive/refs/tags/v5-http-full-spinners.zip" target="_blank"
+           style="display:flex; align-items:center; gap:6px; text-decoration:none; padding:8px 14px; font-size:0.9rem; color:white; background-color:#212529; border-top-right-radius:999px; border-bottom-right-radius:999px;">
+            <i class="pi pi-github"></i>     
+            Descargar de GitHub
+        </a>
+    </div>
+</div>
+
+
+> [!caution]
+>
+> **Recuerda que:** ️
+>
+> - En Stackblitz tendrás que cambiar la URL del servicio (en `hero.service.ts` encontrarás las instrucciones), ya que usa por defecto `localhost`.
+> - Usando la URL remota de `my-json-server` **las peticiones HTTP no son persistentes**. El servidor las aceptará, pero **no verás ningún efecto en las peticiones** `PUT`, `POST`, `PATCH` y `DELETE`.
