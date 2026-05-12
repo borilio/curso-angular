@@ -10,7 +10,7 @@ Antes de llegar a la parte práctica, primero repasaremos algunos conceptos impo
 
 # Contexto inicial
 
-Si entiendes todos los conceptos de la imagen anterior, puedes saltar al siguiente epígrafe <kbd>Peticiones HTTP en Angular</kbd>. Si no, te quédate un ratito más leyendo 😏.
+Si entiendes todos los conceptos de la imagen anterior, puedes saltar al siguiente epígrafe <kbd>Peticiones HTTP en Angular</kbd>. Si no, quédate un ratito más leyendo 😏.
 
 ## Frontend vs Backend
 
@@ -122,32 +122,34 @@ GET /users
 Nos daría la siguiente respuesta:
 
 ```json
-"users": [
-    {
-        "id": 1,
-        "name": "Happy Hogan",
-        "email": "happy.hogan@starkindustries.com",
-        "active": true
-    },
-    {
-        "id": 2,
-        "name": "Nick Fury",
-        "email": "nick.fury@shield.gov",
-        "active": true
-    },
-    {
-        "id": 3,
-        "name": "Alfred Pennyworth",
-        "email": "alfred.pennyworth@wayneenterprises.com",
-        "active": true
-    },
-    {
-        "id": 4,
-        "name": "Lois Lane",
-        "email": "lois.lane@dailyplanet.com",
-        "active": true
-    }
-]
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Happy Hogan",
+            "email": "happy.hogan@starkindustries.com",
+            "active": true
+        },
+        {
+            "id": 2,
+            "name": "Nick Fury",
+            "email": "nick.fury@shield.gov",
+            "active": true
+        },
+        {
+            "id": 3,
+            "name": "Alfred Pennyworth",
+            "email": "alfred.pennyworth@wayneenterprises.com",
+            "active": true
+        },
+        {
+            "id": 4,
+            "name": "Lois Lane",
+            "email": "lois.lane@dailyplanet.com",
+            "active": true
+        }
+    ]
+}
 ```
 
 > [!note]
@@ -254,7 +256,7 @@ DELETE /heroes/1
 
 # Creando nuestro propio backend
 
-Para poder practicar todo lo que veremos en este tema, vamos necesitar un backend, y lo vamos a crear en a utilizar una API simulada con **json-server**, que nos permite crear un backend falso en local en muy poco tiempo.
+Para poder practicar todo lo que veremos en este tema, vamos necesitar un backend, y lo vamos a crear utilizando una API simulada con **json-server**, que nos permite crear un backend falso en local en muy poco tiempo.
 
 Toda la instalación y configuración está explicada en la píldora de json-server, donde podrás ver el proceso paso a paso.
 
@@ -732,7 +734,7 @@ this.userService.getUsers().subscribe({
     error: (err) => {
         // Se ejecuta si ocurre un error en la petición
         console.error('Error completo:', err);
-    }
+    },
     complete: () => {
     	// Se ejecuta cuando la petición termina (opcional)
     	console.log('Petición finalizada');
@@ -822,7 +824,7 @@ Vamos a adaptar la interfaz para poder albergar las nuevas funcionalidades:
 
 - Al inicio del listado, añadimos un botón de <kbd>➕Nuevo héroe</kbd>, para probar la petición `POST`.
 - Añadimos una botonera en la tarjeta del héroe, con los siguientes botones:
-  - <kbd>✏️Editar</kbd>: Modificaremos todos los datos del Héroe por unos valore fijos, así probaremos `PUT`.
+  - <kbd>✏️Editar</kbd>: Modificaremos todos los datos del Héroe por unos valores fijos, así probaremos `PUT`.
   - <kbd>🔁Estado</kbd>: Conmutaremos el estado entre activo e inactivo, así probaremos `PATCH`.
   - <kbd>🗑️Eliminar</kbd>: Eliminaremos el héroe, así probaremos `DELETE`.
 
