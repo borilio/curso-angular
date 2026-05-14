@@ -91,13 +91,46 @@ Es muy importante porque es el **estándar más utilizado en las APIs REST**, ya
 
 ## Tipos de peticiones HTTP
 
+### 📡 Introducción
+
+![Infografía con un resumen de una petición HTTP básica que hacemos a diario. Escribimos una url y un servidor retorna una respuesta con un contenido en HTML](img/12-http/http-navegador.png){.rounded-4}
+
+Cuando escribimos una dirección en el navegador (por ejemplo, `https://www.google.com`) y pulsamos <kbd>Intro</kbd>, en realidad estamos realizando una **petición HTTP** al servidor de esa página.
+
+El navegador envía una solicitud, normalmente de tipo **GET**, indicando que quiere obtener el contenido asociado a esa dirección.
+
+El servidor recibe la petición, la procesa y responde devolviendo dos elementos principales:
+
+- **Un código de estado**: indica cómo ha ido la solicitud.
+  - `200 OK` → todo correcto.
+  - `404 Not Found` → el recurso solicitado no existe.
+  - `500 Internal Server Error` → error en el servidor.
+- **Un contenido**: los datos solicitados.
+  - Habitualmente será **HTML** en una página web.
+  - Pero también puede ser **JSON**, **XML**, imágenes, archivos u otros formatos.
+
+Cuando la respuesta contiene HTML, el navegador interpreta ese código y lo dibuja en pantalla como una página visual.
+
+Aunque no lo parezca, esto lo hacemos constantemente al navegar por internet. Cada vez que abrimos una web, consultamos una página o pulsamos muchos enlaces, estamos utilizando HTTP para comunicarnos con servidores.
+
+> [!tip]
+>
+> **¿Sabías que...?** 🤓☕
+> Dentro de los códigos oficiales de HTTP existe el curioso error **`418 I'm a teapot`** (*Soy una tetera*). El servidor retornará este código de error si le pides café a una tetera.
+>
+> Fue creado como una broma técnica en un estándar experimental de 1998, indicando que una tetera no puede preparar café. Aunque nació en tono humorístico, se hizo tan famoso que muchos programas y APIs todavía lo incluyen como guiño geek.
+>
+> 🏛️ Versión histórica en RFC Editor: https://www.rfc-editor.org/rfc/rfc2324
+
+---
+
 Cuando trabajamos con una API REST, no siempre hacemos el mismo tipo de acción. Dependiendo de lo que queramos hacer (leer datos, crear, modificar o eliminar), utilizaremos un **tipo de petición HTTP distinto**.
 
 A estos tipos se les llama **métodos HTTP** o **verbos HTTP**.
 
-> [!tip]
+> [!important]
 >
-> Por ejemplo, en la petición de ejemplo anterior a `/heroes`, es una petición de tipo `GET`.
+> Por ejemplo, en la petición de ejemplo anterior a `/heroes`, es una petición de tipo `GET`, y recibimos el contenido en formato `JSON`.
 
 Los más importantes son:
 
