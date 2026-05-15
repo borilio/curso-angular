@@ -181,7 +181,7 @@
           "orden": 14,
           "titulo": "14 - Pipes",
           "descripcion": "Pipes. Internos y personalizados",
-          "archivoMd": "99-proximamente.md",
+          "archivoMd": "14-pipes.md",
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,

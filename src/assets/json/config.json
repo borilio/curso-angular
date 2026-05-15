@@ -59,12 +59,12 @@
                 "icon": "pi pi-video",
                 "desc": "Enlace Zoom clase virtual (12/Mayo/2026)",
                 "href": "https://us06web.zoom.us/j/81405044527?pwd=VAtpwnIAoXizZq4Rmew7Iu7Mbdoi0J.1",
-                "disabled": false
+                "disabled": true
             }
         ]
     },
     "caducidad": {
-        "fecha": "2026-06-10",
+        "fecha": "2026-07-10",
         "aviso": 15,
         "mensajeAviso": "Los contenidos de este curso se cerrarán próximamente.",
         "mensajeCerrado": "Lo sentimos, este curso ya no está disponible."
