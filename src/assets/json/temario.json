@@ -174,7 +174,7 @@
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },
         {
           "id": "pipes",
@@ -192,11 +192,11 @@
           "orden": 15,
           "titulo": "15 - CRUD completo con HTTP",
           "descripcion": "CRUD completo con HTTP",
-          "archivoMd": "15-crud.md",
+          "archivoMd": "99-proximamente.md",
           "icon": "pi pi-graduation-cap",
           "severity": "warn",
           "outlined": false,
-          "habilitado": true
+          "habilitado": false
         },      
         {
           "id": "fin-intermedio",
